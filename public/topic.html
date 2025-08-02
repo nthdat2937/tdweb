@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Topic | TD Web</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #1a73e8;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        h2 {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .select-container {
+            margin: 2rem 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        select {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #1a1a1a;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            border-color: #1a73e8;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100%, 100%));
+            gap: 1rem;
+        }
+
+        li {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            text-decoration: none;
+            color: #1a73e8;
+            font-weight: 500;
+            display: block;
+            word-break: break-all;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1557b0;
+        }
+
+        .warning-banner {
+            background: linear-gradient(135deg, #ff4e50, #f9d423);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .warning-banner i {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Topic List</h1>
+
+        <div class="select-container">
+            <label for="country">Chọn Topic:</label>
+            <select id="country" onchange="showDestinations()">
+                <option value="">--Chọn Topic--</option>
+                <option value="topic1">Topic 1</option>
+                <option value="topic3">Topic 3</option>
+            </select>
+        </div>
+
+        <hr>
+
+        <ul id="destinations"></ul>
+    </div>
+
+    <script>
+        const destinationsData = {
+            topic1: [
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Hey, Duy! How’s it going? I feel like I haven’t seen you in ages.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Oh, Đạt! Good to see you. Yeah, it’s been a while. What have you been up to lately?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Well, I’ve been diving deep into coding. You know, trying to sharpen my skills for my dream job—becoming a <i>software developer</i>. It’s kind of become my obsession these days.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> No way! That sounds intense but super cool. I can totally picture you as one of those tech wizards who builds mind-blowing apps. What made you choose that path?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Honestly, I love solving problems and creating things from scratch. There’s something so satisfying about writing lines of code and seeing them come alive as functional software. Plus, the tech industry is booming, so there’s plenty of room for innovation. How about you? Still chasing your creative passions?<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Absolutely! I’m actually working toward becoming a <i>graphic designer</i>. I’ve always been drawn to visual storytelling—you know, using colors, shapes, and typography to evoke emotions. It’s like speaking a universal language without words.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Wow, that’s awesome. I bet you’ll create some stunning designs. Do you think you’ll specialize in any particular area, like branding or maybe UX/UI design?<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Great question! I’m really leaning toward UX/UI design because I enjoy making digital experiences not only beautiful but also intuitive and user-friendly. It’s all about crafting seamless interactions between people and technology. Kind of ties into what you’re doing, huh?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Totally! In fact, we might even end up collaborating someday. Imagine this: I build the backbone of an app, and you make sure it looks sleek and feels amazing to use. We could be an unstoppable duo!<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Haha, I’d love that! A synergy of logic and creativity. By the way, are you learning any specific programming languages right now?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Yeah, I’ve been focusing on Python and JavaScript. They’re versatile and widely used, which makes them perfect for beginners and pros alike. But let me tell you, debugging can sometimes feel like deciphering ancient hieroglyphs!<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Haha, I feel you. For me, mastering Adobe Illustrator felt like cracking the Da Vinci Code at first. Every tool has its quirks, but once you get the hang of it, it’s incredibly rewarding.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> True that. It’s funny how every field has its own set of challenges, but they all require persistence and passion. Speaking of which, do you ever worry about staying relevant in such a fast-evolving industry?<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Definitely. Trends change so quickly in design, so I try to keep experimenting and learning new techniques. Platforms like Behance and Dribbble help me stay inspired. What about you? Tech evolves at lightning speed too.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Absolutely. That’s why I follow blogs, attend webinars, and contribute to open-source projects. It keeps me on my toes and connected to the global developer community. Lifelong learning is key, I guess.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> This chat has been so refreshing, Đạt. It’s inspiring to hear about your journey. Let’s catch up more often—I need all the motivation I can get!<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Same here, Duy. Your enthusiasm for design is contagious. Who knows? Maybe our future projects will inspire each other. Until next time, keep sketching those masterpieces!<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> And you keep coding those game-changing apps! Catch you later, Đạt.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> See ya, Duy!`
+            ],
+            topic3: [
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Hey, Thái Duy! Long time no see. How’s life treating you these days?<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Oh, hey Thành Đạt! Life’s been a whirlwind, but I can’t complain. What about you? Still diving into those eco-friendly projects of yours?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Absolutely! Actually, I’ve been brainstorming ways to help endangered animals lately. It’s such a pressing issue, don’t you think?<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Totally agree. The biodiversity crisis is spiraling out of control. We’re losing species at an alarming rate. Any groundbreaking ideas on your mind?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Well, for starters, we could advocate for habitat restoration. Many animals are teetering on the brink because their homes are being decimated by deforestation and urban sprawl. Replanting native vegetation and creating wildlife corridors might give them a fighting chance.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> That’s a stellar idea. Wildlife corridors are like nature’s highways, allowing animals to migrate safely without bumping into human infrastructure. What else do you reckon could make a difference?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> I’ve been reading about cutting-edge technology like drones and AI. For instance, drones can monitor poaching activities in real-time, while AI algorithms can predict population trends and identify critical areas for conservation.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Wow, that’s futuristic! It’s amazing how tech can lend a hand to Mother Nature. But what about tackling the root causes, like illegal wildlife trade?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Great point. Strengthening international laws and imposing stricter penalties on poachers could be a game-changer. Public awareness campaigns might also curb demand for products made from endangered species, like ivory or exotic pets.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> True. Education is key. If people understood the ripple effects of losing even one species, they’d probably think twice before supporting harmful practices. Speaking of which, have you heard about ecotourism?<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Yes! It’s a fantastic way to generate funds for conservation while letting tourists experience the beauty of wildlife firsthand. Just imagine—money from safaris or birdwatching tours could go straight back into protecting those ecosystems.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Exactly. And it fosters a sense of stewardship among visitors. They leave with a deeper appreciation for nature and may even become ambassadors for conservation themselves.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Couldn’t have said it better. Another thought—what if we encouraged more community-based initiatives? Local populations often have invaluable traditional knowledge about their environment. Empowering them to take the lead could yield incredible results.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Love that approach. Grassroots movements tend to be more sustainable in the long run. Plus, when communities benefit economically from conservation, they’re less likely to engage in activities that harm wildlife.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Precisely. So, between reviving habitats, leveraging tech, tightening laws, promoting ecotourism, and empowering locals, there’s hope yet.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Definitely. It’ll take a concerted effort, but every little action counts. Thanks for sharing all these insights, Thành Đạt—you’ve really got me inspired!<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Likewise, Thái Duy. Let’s keep this conversation going and maybe even team up on something impactful someday.<br><br>` +
+                `<span style="color:blue; font-weight:bold;">Thái Duy:</span> Deal! Catch you later, eco-warrior.<br><br>` +
+                `<span style="color:red; font-weight:bold;">Thành Đạt:</span> Take care, Thái Duy. Until next time!` 
+            ],
+        };
+    
+        function showDestinations() {
+            const topic = document.getElementById("country").value;
+            const destinationsList = document.getElementById("destinations");
+    
+            destinationsList.classList.add("loading");
+            destinationsList.innerHTML = "";
+    
+            setTimeout(() => {
+                if (topic && destinationsData[topic]) {
+                    destinationsList.innerHTML = `<li>${destinationsData[topic][0]}</li>`;
+                } else {
+                    destinationsList.innerHTML = '<div class="empty-state">Vui lòng chọn một Topic để xem nội dung.</div>';
+                }
+    
+                destinationsList.classList.remove("loading");
+            }, 300);
+        }
+    
+        document.getElementById("destinations").innerHTML = '<div class="empty-state">Vui lòng chọn một Topic để xem nội dung.</div>';
+      
+      while (true) {
+        const password2 = prompt("Vui lòng nhập mật khẩu cấp 2:")
+        const pass2 = "topic_0"
+
+        if (password2 === pass2) {
+            break
+        } if (password2 === "") {
+            alert("Vui lòng nhập mật khẩu!")
+        } else {
+            alert("Sai mật khẩu!")
+        }
+      }
+    </script>
+    
+    
+</body>
+</html>

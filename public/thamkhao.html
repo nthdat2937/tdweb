@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tham Khảo | TD Web</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />
+  </head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(45deg, #4776E6, #8E54E9);
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #4776E6;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+        }
+
+        .subsection {
+            margin-bottom: 2rem;
+        }
+
+        .subsection h3 {
+            color: #8E54E9;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .tag {
+            color: #8E54E9;
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .description {
+            margin-top: 0.5rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .attributes {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .attribute {
+            margin: 0.5rem 0;
+            color: #4776E6;
+        }
+
+        .attribute span {
+            color: #666;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transform: rotate(30deg);
+            transition: 0.5s;
+            opacity: 0;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #4776E6;
+            box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.1);
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .category-tab {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            background: #4776E6;
+            color: white;
+        }
+        
+        .list {
+            text-decoration: none;
+            color: black;
+        }
+        
+        .category-tab.active {
+            background: #8E54E9;
+            color: white;
+        }
+    </style>
+
+    <div class="container">
+        <header>
+            <h1 class="floating">HTML & CSS Reference Guide</h1>
+            <p>Tài liệu tham khảo toàn diện cho Web Developer</p>
+        </header>
+
+        <input type="text" class="search-box" placeholder="Tìm kiếm thẻ HTML hoặc thuộc tính CSS...">
+
+        <div class="category-tabs">
+            <div class="category-tab active">Tất cả</div>
+            <div class="category-tab"><a class="list" href="#theLayout">Thẻ Layout</a></div>
+            <div class="category-tab"><a class="list" href="#theText">Thẻ Text</a></div>
+            <div class="category-tab"><a class="list" href="#theForm">Thẻ Form</a></div>
+            <div class="category-tab"><a class="list" href="#cssLayout">CSS Layout</a></div>
+            <div class="category-tab"><a class="list" href="#thuocTinhTrucQuan">Thuộc tính trực quan</a></div>
+            <div class="category-tab"><a class="list" href="#cssEffects">CSS Effects</a></div>
+            <div class="category-tab"><a class="list" href="#nangCao">Nâng cao</a></div>
+        </div>
+
+        <section class="section" id="html-tags">
+            <h2>Thẻ HTML Cơ Bản</h2>
+
+            <div class="subsection" id="theLayout">
+                <h3>Thẻ Layout</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">&lt;div&gt;</div>
+                        <div class="description">Container chung, block-level element</div>
+                        <div class="attributes">
+                            <div class="attribute">- class: <span>CSS styling</span></div>
+                            <div class="attribute">- id: <span>Unique identifier</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;span&gt;</div>
+                        <div class="description">Container inline cho text</div>
+                        <div class="attributes">
+                            <div class="attribute">- style: <span>Inline CSS</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;header&gt;</div>
+                        <div class="description">Phần đầu của trang/section</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;main&gt;</div>
+                        <div class="description">Nội dung chính của trang</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;footer&gt;</div>
+                        <div class="description">Phần cuối của trang/section</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="theText">
+                <h3>Thẻ Text</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">&lt;h1&gt; - &lt;h6&gt;</div>
+                        <div class="description">Các cấp độ tiêu đề</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;p&gt;</div>
+                        <div class="description">Đoạn văn bản</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;strong&gt;</div>
+                        <div class="description">Text đậm, quan trọng</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;em&gt;</div>
+                        <div class="description">Text nghiêng, nhấn mạnh</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="theForm">
+                <h3>Thẻ Form</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">&lt;form&gt;</div>
+                        <div class="description">Container cho form</div>
+                        <div class="attributes">
+                            <div class="attribute">- action: <span>URL xử lý form</span></div>
+                            <div class="attribute">- method: <span>POST/GET</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;input&gt;</div>
+                        <div class="description">Trường nhập liệu</div>
+                        <div class="attributes">
+                            <div class="attribute">- type: <span>text, password, email...</span></div>
+                            <div class="attribute">- placeholder: <span>Hint text</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">&lt;button&gt;</div>
+                        <div class="description">Nút bấm</div>
+                        <div class="attributes">
+                            <div class="attribute">- type: <span>submit, button, reset</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="css-properties">
+            <h2>CSS Properties</h2>
+
+            <div class="subsection" id="cssLayout">
+                <h3>Layout Properties</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">display</div>
+                        <div class="description">Kiểu hiển thị của element</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>block, inline, flex, grid, none</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">position</div>
+                        <div class="description">Phương thức định vị</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>static, relative, absolute, fixed</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">flex-direction</div>
+                        <div class="description">Hướng của flex container</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>row, column, row-reverse</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">grid-template-columns</div>
+                        <div class="description">Định nghĩa columns trong grid</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>1fr, auto, minmax()</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="thuocTinhTrucQuan">
+                <h3>Visual Properties</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">color</div>
+                        <div class="description">Màu chữ</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>hex, rgb, hsl</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">background</div>
+                        <div class="description">Background styling</div>
+                        <div class="attributes">
+                            <div class="attribute">Properties: <span>color, image, size, position</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">box-shadow</div>
+                        <div class="description">Đổ bóng cho element</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>offset-x offset-y blur spread color</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">border-radius</div>
+                        <div class="description">Bo góc cho element</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>px, %, rem</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection" id="cssEffects">
+                <h3>Transform & Animation</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">transform</div>
+                        <div class="description">Biến đổi hình dạng/vị trí</div>
+                        <div class="attributes">
+                            <div class="attribute">Functions: <span>translate, rotate, scale, skew</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">transition</div>
+                        <div class="description">Hiệu ứng chuyển đổi</div>
+                        <div class="attributes">
+                            <div class="attribute">Properties: <span>property duration timing-function</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">animation</div>
+                        <div class="description">Hoạt ảnh phức tạp</div>
+                        <div class="attributes">
+                            <div class="attribute">Properties: <span>name duration timing-function</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="advanced-features">
+            <h2 id="nangCao">Tính năng nâng cao</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="tag">@media queries</div>
+                    <div class="description">Responsive design cho các thiết bị khác nhau</div>
+                    <div class="attributes">
+                        <div class="attribute">- screen: <span>Màn hình thông thường</span></div>
+                        <div class="attribute">- max-width: <span>Breakpoint cho responsive</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="tag">CSS Variables</div>
+                    <div class="description">Biến tùy chỉnh trong CSS</div>
+                    <div class="attributes">
+                        <div class="attribute">Syntax: <span>--variable-name: value;</span></div>
+                        <div class="attribute">Usage: <span>var(--variable-name)</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="tag">CSS Grid Areas</div>
+                    <div class="description">Định nghĩa layout bằng tên vùng</div>
+                    <div class="attributes">
+                        <div class="attribute">- grid-template-areas: <span>Định nghĩa layout</span></div>
+                        <div class="attribute">- grid-area: <span>Đặt tên cho vùng</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Pseudo-classes & Elements</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">:hover</div>
+                        <div class="description">Style khi di chuột qua</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">:focus</div>
+                        <div class="description">Style khi element được focus</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">::before</div>
+                        <div class="description">Thêm content trước element</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">::after</div>
+                        <div class="description">Thêm content sau element</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Flexbox Properties</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">justify-content</div>
+                        <div class="description">Căn chỉnh theo trục chính</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>flex-start, center, space-between</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">align-items</div>
+                        <div class="description">Căn chỉnh theo trục phụ</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>stretch, center, flex-start</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">flex-wrap</div>
+                        <div class="description">Xử lý items khi tràn container</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>wrap, nowrap, wrap-reverse</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Grid Properties</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">grid-gap</div>
+                        <div class="description">Khoảng cách giữa các items</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>row-gap column-gap</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">grid-auto-flow</div>
+                        <div class="description">Cách sắp xếp items tự động</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>row, column, dense</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">grid-auto-columns</div>
+                        <div class="description">Kích thước cột tự động</div>
+                        <div class="attributes">
+                            <div class="attribute">Values: <span>min-content, max-content, auto</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>CSS Custom Properties</h3>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="tag">:root</div>
+                        <div class="description">Định nghĩa biến global</div>
+                        <div class="attributes">
+                            <div class="attribute">Example: <span>--primary-color: #4776E6;</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">calc()</div>
+                        <div class="description">Tính toán giá trị CSS</div>
+                        <div class="attributes">
+                            <div class="attribute">Example: <span>calc(100% - 20px)</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="tag">@supports</div>
+                        <div class="description">Kiểm tra tính năng được hỗ trợ</div>
+                        <div class="attributes">
+                            <div class="attribute">Example: <span>@supports (display: grid) { ... }</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="best-practices">
+            <h2>Best Practices & Tips</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <div class="tag">Mobile First</div>
+                    <div class="description">Thiết kế cho mobile trước, sau đó mở rộng cho desktop</div>
+                    <div class="attributes">
+                        <div class="attribute">- Use: <span>min-width trong media queries</span></div>
+                        <div class="attribute">- Start: <span>Với layout đơn giản nhất</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="tag">Performance</div>
+                    <div class="description">Tối ưu hiệu suất</div>
+                    <div class="attributes">
+                        <div class="attribute">- Minimize: <span>HTTP requests</span></div>
+                        <div class="attribute">- Optimize: <span>Images và assets</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="tag">Accessibility</div>
+                    <div class="description">Thiết kế cho mọi người dùng</div>
+                    <div class="attributes">
+                        <div class="attribute">- Use: <span>Semantic HTML</span></div>
+                        <div class="attribute">- Add: <span>ARIA labels khi cần</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const searchBox = document.querySelector('.search-box');
+        const cards = document.querySelectorAll('.card');
+
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        const tabs = document.querySelectorAll('.category-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

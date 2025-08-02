@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study | TD Web</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1c2c 0%, #2a3c54 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .card-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .card-creator {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Trang Web Hữu Ích</h1>
+        
+        <div class="grid">
+            <!-- W3Schools -->
+            <div class="card">
+                <h2 class="card-title">W3Schools</h2>
+                <div>
+                    <span class="tag">Học lập trình</span>
+                    <span class="tag">Tài liệu</span>
+                </div>
+                <p class="card-description">
+                    Nền tảng học lập trình trực tuyến miễn phí hàng đầu với các bài học, ví dụ và bài tập thực hành về HTML, CSS, JavaScript và nhiều ngôn ngữ khác.
+                </p>
+                <p class="card-creator">
+                    🏢 Người sáng lập: Refsnes Data
+                </p>
+                <a href="https://www.w3schools.com" target="_blank" class="card-link">Học ngay →</a>
+            </div>
+
+            <!-- ChatGPT -->
+            <div class="card">
+                <h2 class="card-title">ChatGPT</h2>
+                <div>
+                    <span class="tag">AI Chat</span>
+                    <span class="tag">OpenAI</span>
+                </div>
+                <p class="card-description">
+                    Chatbot AI tiên tiến có khả năng trả lời câu hỏi, giải thích khái niệm, viết code và hỗ trợ nhiều tác vụ khác nhau.
+                </p>
+                <p class="card-creator">
+                    🏢 Công ty: OpenAI
+                </p>
+                <a href="https://chat.openai.com" target="_blank" class="card-link">Trò chuyện →</a>
+            </div>
+
+            <!-- Gemini -->
+            <div class="card">
+                <h2 class="card-title">Gemini</h2>
+                <div>
+                    <span class="tag">AI Chat</span>
+                    <span class="tag">Google</span>
+                </div>
+                <p class="card-description">
+                    Mô hình AI đa năng của Google, có khả năng xử lý văn bản, hình ảnh và tạo code, giúp người dùng giải quyết nhiều vấn đề khác nhau.
+                </p>
+                <p class="card-creator">
+                    🏢 Công ty: Google
+                </p>
+                <a href="https://gemini.google.com" target="_blank" class="card-link">Khám phá →</a>
+            </div>
+
+            <!-- Claude -->
+            <div class="card">
+                <h2 class="card-title">Claude</h2>
+                <div>
+                    <span class="tag">AI Chat</span>
+                    <span class="tag">Anthropic</span>
+                </div>
+                <p class="card-description">
+                    AI assistant thông minh với khả năng phân tích, viết code, và xử lý văn bản chuyên sâu, được đào tạo với focus vào tính chính xác và an toàn.
+                </p>
+                <p class="card-creator">
+                    🏢 Công ty: Anthropic
+                </p>
+                <a href="https://claude.ai" target="_blank" class="card-link">Trò chuyện →</a>
+            </div>
+
+            <!-- Glitch -->
+            <div class="card">
+                <h2 class="card-title">Glitch</h2>
+                <div>
+                    <span class="tag">Web Dev</span>
+                    <span class="tag">Hosting</span>
+                </div>
+                <p class="card-description">
+                    Nền tảng phát triển web cho phép bạn tạo, chỉnh sửa và host các ứng dụng web trực tiếp trên trình duyệt với khả năng cộng tác thời gian thực.
+                </p>
+                <p class="card-creator">
+                    🏢 Công ty: Glitch, Inc.
+                </p>
+                <a href="https://glitch.com" target="_blank" class="card-link">Tạo dự án →</a>
+            </div>
+
+            <!-- The Hacker News -->
+            <div class="card">
+                <h2 class="card-title">The Hacker News</h2>
+                <div>
+                    <span class="tag">Tin tức</span>
+                    <span class="tag">Bảo mật</span>
+                </div>
+                <p class="card-description">
+                    Nguồn tin tức hàng đầu về bảo mật mạng, công nghệ và hacking, cung cấp thông tin mới nhất về các lỗ hổng, công cụ và xu hướng bảo mật.
+                </p>
+                <p class="card-creator">
+                    🏢 Người sáng lập: Mohit Kumar
+                </p>
+                <a href="https://thehackernews.com" target="_blank" class="card-link">Đọc tin →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

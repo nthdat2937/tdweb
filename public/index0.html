@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TD web</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="preloader">
+      <span class="loader"></span>
+    </div>
+
+    <div class="theme-switcher">
+      <button class="theme-btn" onclick="toggleTheme()">🌓 Chế độ tối</button>
+    </div>
+
+    <div id="announcement-bar">
+      <span class="announcement-icon">🌟</span>
+      <span
+        >Chào mừng đến với TD Web - Nơi tạo nên những trải nghiệm tuyệt
+        vời!</span
+      >
+      <span class="announcement-icon">🌟</span>
+    </div>
+
+    <header class="dynamic-header">
+      <div class="parallax-container">
+        <div class="parallax-layer" style="--depth: -100px; --scale: 1.2"></div>
+        <div class="parallax-layer" style="--depth: -50px; --scale: 1.1"></div>
+        <div class="parallax-layer" style="--depth: 0px; --scale: 1"></div>
+      </div>
+
+      <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+      </div>
+
+      <div class="header-content">
+        <h1 class="header-title">Chào mừng đến với TD Web</h1>
+        <p class="header-subtitle">
+          Khám phá những trải nghiệm độc đáo và sáng tạo cùng chúng tôi
+        </p>
+      </div>
+    </header>
+
+    <section class="nav-cards" id="content1">
+      <div class="nav-card">
+        <h3>Chat</h3>
+        <p>Tham gia trò chuyện, chia sẻ ý kiến và kết nối cùng cộng đồng 💬</p>
+        <a href="chat.html" target="_blank">Truy cập Chat</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Games Zone</h3>
+        <p>Khám phá thế giới trò chơi hấp dẫn và thú vị 🎮</p>
+        <a href="games.html" target="_blank">Chơi ngay</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Pomodoro</h3>
+        <p>Tối ưu năng suất với phương pháp Pomodoro ⏱️</p>
+        <a href="pomodoro.html" target="_blank">Bắt đầu ngay</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Camera</h3>
+        <p>Khám phá và theo dõi những khoảnh khắc thú vị 📸</p>
+        <a href="cam.html" target="_blank">Truy cập</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Study</h3>
+        <p>Khám phá kho tài nguyên học tập chất lượng 📚</p>
+        <a href="usefulwebsite.html" target="_blank">Học ngay</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Songs</h3>
+        <p>Thư giãn với bộ sưu tập nhạc tuyển chọn 🎵</p>
+        <a href="song.html" target="_blank">Truy cập </a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Tham khảo</h3>
+        <p>Tài liệu tham khảo dành cho Developer📃</p>
+        <a href="thamkhao.html" target="_blank">Xem thêm</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Cá Voi</h3>
+        <p>Tìm hiểu về những chú cá voi đáng yêu 🐋</p>
+        <a onclick="checkPasswordCavoi()" class="bikhoa">Khoá 🔒</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>About Us</h3>
+        <p>Tìm hiểu thêm về chúng tôi và sứ mệnh của TD Web ℹ️</p>
+        <a href="intro.html" target="_blank">Xem thêm</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>English topic</h3>
+        <a onclick="checkPasswordTopic()" class="bikhoa">Khoá 🔒🔒</a>
+      </div>
+
+      <div class="nav-card">
+        <h3>Demo</h3>
+        <p>Giao diện mới 💬</p>
+        <a href="index.html" target="_blank">Xem ngay</a>
+      </div>
+    </section>
+
+    <section class="mini-game">
+      <h2>Mini Game - Phản Xạ Nhanh ⚡</h2>
+      <p>Chờ nút chuyển sang màu xanh lá cây, sau đó nhấn thật nhanh!</p>
+      <button class="game-button" onclick="startGame()">
+        Bắt đầu thử thách
+      </button>
+      <p id="game-score"></p>
+    </section>
+
+    <section class="mini-game">
+      <h2>Mini Game - Test Trực Giác ⚡</h2>
+      <p>Dự đoán số ngẫu nhiên từ 1 ~ 100</p>
+
+      <div class="guess-game-container">
+        <input
+          type="number"
+          id="userGuess"
+          class="guess-input"
+          min="1"
+          max="100"
+        />
+        <button onclick="checkGuess()" class="guess-button">Đoán</button>
+        <button id="resetButton" onclick="resetGame()" class="reset-button">
+          Chơi lại
+        </button>
+      </div>
+
+      <p id="message" class="guess-message"></p>
+      <p class="guess-attempts">
+        Số lần đoán: <span id="attempts" class="guess-attempts-count">0</span>
+      </p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 TD Web - Nơi tạo nên những trải nghiệm độc đáo ✨</p>
+      <p>Update 11.02.25</p>
+    </footer>
+
+    <script src="./index.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

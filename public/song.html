@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Songs | TD Web</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .title {
+        font-size: 24px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .search-container {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+      }
+
+      .search-category {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        color: #333;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      th:hover {
+        background-color: #e9ecef;
+      }
+
+      th i {
+        margin-left: 5px;
+      }
+
+      tbody tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .song-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-style: italic;
+      }
+
+      .platform-menu {
+        position: absolute;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 8px;
+        display: none;
+        z-index: 1000;
+      }
+
+      .platform-menu.active {
+        display: block;
+      }
+
+      .platform-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #333;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+
+      .platform-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      .platform-item i {
+        width: 20px;
+        text-align: center;
+      }
+
+      .youtube-color {
+        color: #ff0000;
+      }
+
+      .spotify-color {
+        color: #1db954;
+      }
+
+      .nct-color {
+        color: #2eaae1;
+      }
+
+      @media (max-width: 768px) {
+        .search-container {
+          flex-direction: column;
+        }
+
+        .search-input,
+        .search-category {
+          width: 100%;
+        }
+
+        .table-container {
+          overflow-x: auto;
+        }
+      }
+      
+      .spotify-button {
+  background-color: #1db954;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.spotify-button:hover {
+  background-color: #1ed760;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.spotify-button i {
+  font-size: 18px;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+  <h1 class="title">
+    <i class="fas fa-music"></i>
+    Danh sách bài hát hay (Update 19.02.25)
+  </h1>
+  <a href="https://open.spotify.com/playlist/5C2KgabcS3kSB3ieQzFI4X" class="spotify-button" target="_blank">
+    <i class="fab fa-spotify"></i> Open Spotify
+  </a>
+</div>
+
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Nhập từ khóa tìm kiếm..."
+        />
+        <select id="searchCategory" class="search-category">
+          <option value="all">Tất cả</option>
+          <option value="name">Tên bài hát</option>
+          <option value="artist">Ca sĩ</option>
+          <option value="producer">Producer</option>
+          <option value="composer">Người sáng tác</option>
+        </select>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="id">#</th>
+              <th data-sort="name">Tên bài hát <i class="fas fa-sort"></i></th>
+              <th data-sort="artist">Ca sĩ <i class="fas fa-sort"></i></th>
+              <th data-sort="releaseDate">
+                Ngày ra mắt <i class="fas fa-sort"></i>
+              </th>
+              <th data-sort="producer">Producer <i class="fas fa-sort"></i></th>
+              <th data-sort="composer">
+                Người sáng tác <i class="fas fa-sort"></i>
+              </th>
+              <th data-sort="addDate">Ngày thêm <i class="fas fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody id="songList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="platformMenu" class="platform-menu">
+      <a href="#" class="platform-item youtube-link">
+        <i class="fab fa-youtube youtube-color"></i>
+        <span>YouTube</span>
+      </a>
+      <a href="#" class="platform-item spotify-link">
+        <i class="fab fa-spotify spotify-color"></i>
+        <span>Spotify</span>
+      </a>
+      <a href="#" class="platform-item nct-link">
+        <i class="fas fa-music nct-color"></i>
+        <span>NhacCuaTui</span>
+      </a>
+    </div>
+
+    <script>
+
+      let songs = [
+        {
+          id: 1,
+          name: "Giờ Thì",
+          artist: "buitruonglinh",
+          releaseDate: "12/12/2024",
+          producer: "Đậu Tất Đạt",
+          composer: "buitruonglinh",
+          addDate: "29/01/2025",
+        },
+        {
+          id: 2,
+          name: "Từng Ngày Yêu Em",
+          artist: "buitruonglinh",
+          releaseDate: "12/12/2024",
+          producer: "Đậu Tất Đạt",
+          composer: "buitruonglinh",
+          addDate: "29/01/2025",
+        },
+        {
+          id: 3,
+          name: "Wrong Times",
+          artist: "PUPPY & DRT",
+          releaseDate: "17/05/2023",
+          producer: "FOWLEX Snowz",
+          composer: "",
+          addDate: "29/01/2025",
+        },
+        {
+          id: 4,
+          name: "Dù Cho Tận Thế",
+          artist: "ERIK",
+          releaseDate: "06/02/2025",
+          producer: "Nguyễn Phúc Thiên",
+          composer: "Nguyễn Phúc Thiên",
+          addDate: "06/02/2025",
+        },
+        {
+          id: 5,
+          name: "Giá Như",
+          artist: "SOOBIN",
+          releaseDate: "10/04/2024",
+          producer: "SOOBIN",
+          composer: "SOOBIN",
+          addDate: "09/02/2025",
+        },
+        {
+          id: 6,
+          name: "Dù Em Từng Yêu",
+          artist: "buitruonglinh",
+          releaseDate: "12/12/2024",
+          producer: "Đậu Tất Đạt",
+          composer: "buitruonglinh",
+          addDate: "12/02/2025",
+        },
+        {
+          id: 7,
+          name: "Một Đời",
+          artist: "Bon Nghiêm & buitruonglinh",
+          releaseDate: "21/12/2022",
+          producer: "14 Casper",
+          composer: "Bon Nghiêm & 14 Casper",
+          addDate: "14/02/2025",
+        },
+        {
+          id: 8,
+          name: "Nàng Công Chúa Nhỏ",
+          artist: "buitruonglinh",
+          releaseDate: "12/12/2024",
+          producer: "Đậu Tất Đạt",
+          composer: "buitruonglinh",
+          addDate: "14/02/2025",
+        },
+        {
+          id: 9,
+          name: "Tiến Hay Lùi",
+          artist: "SOOBIN & Bùi Công Nam",
+          releaseDate: "26/01/2025",
+          producer: "Bùi Công Nam",
+          composer: "StillaD & Bùi Công Nam & SOOBIN",
+          addDate: "14/02/2025",
+        },
+        {
+          id: 10,
+          name: "Mất Kết Nối",
+          artist: "Dương Domic",
+          releaseDate: "22/11/2024",
+          producer: "Sir Hoang",
+          composer: "Dương Domic",
+          addDate: "14/02/2025",
+        },
+        {
+          id: 11,
+          name: "Hẹn Gặp Em Dưới Ánh Trăng",
+          artist: "HURRYKNG & HIEUTHUHAI & MANBO",
+          releaseDate: "26/03/2021",
+          producer: "Phối Ngọc Tiết",
+          composer: "HIEUTHUHAI & DBAOLA",
+          addDate: "17/02/2025",
+        },
+        {
+          id: 12,
+          name: "Mình Là Gì Của Nhau",
+          artist: "Lou Hoàng",
+          releaseDate: "21/09/2016",
+          producer: "Nguyễn Phúc Thiện & Only C",
+          composer: "Only C",
+          addDate: "19/03/2025",
+        },
+        {
+          id: 13,
+          name: "Cũng Đành Thôi",
+          artist: "Đức Phúc",
+          releaseDate: "23/11/2016",
+          producer: "",
+          composer: "Khắc Hưng",
+          addDate: "19/03/2025",
+        },
+        {
+          id: 14,
+          name: "Muốn Nói Với Em",
+          artist: "T Team & DT Tập Rap",
+          releaseDate: "06/06/2020",
+          producer: "Uncle Lee",
+          composer: "T-Team",
+          addDate: "19/03/2025",
+        },
+        {
+          id: 15,
+          name: "Đợi",
+          artist: "52Hz",
+          releaseDate: "15/12/2023",
+          producer: "RIO",
+          composer: "52Hz & RIO",
+          addDate: "19/03/2025",
+        },
+        {
+          id: 16,
+          name: "Ôm Trọn Nỗi Nhớ",
+          artist: "RUM",
+          releaseDate: "22/07/2019",
+          producer: "Thành Phát",
+          composer: "RUM",
+          addDate: "19/03/2025",
+        },
+        {
+          id: 17,
+          name: "Hà Nội",
+          artist: "VSTRA & Obito",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 18,
+          name: "Think About You",
+          artist: "Kay Châu Anh",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 19,
+          name: "Mơ",
+          artist: "Vũ Cát Tường",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 20,
+          name: "Love Is",
+          artist: "DRT",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 21,
+          name: "Exit Sign",
+          artist: "HIEUTHUHAI",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 22,
+          name: "Ex's Hate Me",
+          artist: "AMEE & Bray",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 23,
+          name: "Tràn Bộ Nhớ",
+          artist: "Dương Domic",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 24,
+          name: "Có Đôi Điều",
+          artist: "Shiki",
+          releaseDate: "",
+          producer: "",
+          composer: "",
+          addDate: "",
+        },
+        {
+          id: 25,
+          name: "Ngày Chưa Giông Bão",
+          artist: "Bùi Lan Hương",
+          releaseDate: "18/10/2018",
+          producer: "Victor Vũ",
+          composer: "Phan Mạnh Quỳnh",
+          addDate: "19/03/2025",
+        },
+        {
+          id: 26,
+          name: "Thuyền Không Bến Đợi",
+          artist: "Trungg I.U",
+          releaseDate: "10/01/2024",
+          producer: "Trungg I.U",
+          composer: "Trungg I.U",
+          addDate: "26/03/2025",
+        },
+        // {id:#,
+        // name:"",
+        // artist:"",
+        // releaseDate:"",
+        // producer:"",
+        // composer:"",
+        // addDate:"",
+        // },
+      ];
+
+      let currentSort = {
+        column: null,
+        direction: "asc",
+      };
+
+      function normalizeText(text) {
+        return text
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D");
+      }
+
+      const normalizedSongs = songs.map((song) => ({
+        ...song,
+        normalizedName: normalizeText(song.name),
+        normalizedArtist: normalizeText(song.artist),
+        normalizedProducer: normalizeText(song.producer),
+        normalizedComposer: normalizeText(song.composer || ""),
+      }));
+
+      function filterSongs(searchTerm, category) {
+        if (!searchTerm) return songs;
+
+        const normalizedSearchTerm = normalizeText(searchTerm);
+
+        return songs.filter((song, index) => {
+          if (category === "all") {
+            return (
+              normalizedSongs[index].normalizedName.includes(
+                normalizedSearchTerm
+              ) ||
+              normalizedSongs[index].normalizedArtist.includes(
+                normalizedSearchTerm
+              ) ||
+              normalizedSongs[index].normalizedProducer.includes(
+                normalizedSearchTerm
+              ) ||
+              normalizedSongs[index].normalizedComposer.includes(
+                normalizedSearchTerm
+              )
+            );
+          } else {
+            const normalizedField =
+              normalizedSongs[index][
+                `normalized${
+                  category.charAt(0).toUpperCase() + category.slice(1)
+                }`
+              ];
+            return normalizedField.includes(normalizedSearchTerm);
+          }
+        });
+      }
+
+      function sortSongs(songsToSort, column) {
+        return [...songsToSort].sort((a, b) => {
+          let aVal = a[column] || "";
+          let bVal = b[column] || "";
+
+          if (typeof aVal === "string") aVal = normalizeText(aVal);
+          if (typeof bVal === "string") bVal = normalizeText(bVal);
+
+          if (column === "id") {
+            return currentSort.direction === "asc" ? a.id - b.id : b.id - a.id;
+          }
+
+          if (currentSort.direction === "asc") {
+            return aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+          } else {
+            return aVal > bVal ? -1 : aVal < bVal ? 1 : 0;
+          }
+        });
+      }
+
+      function showPlatformMenu(event, song) {
+        event.preventDefault();
+        const menu = document.getElementById("platformMenu");
+
+        menu.style.left = `${event.pageX}px`;
+        menu.style.top = `${event.pageY}px`;
+
+        const youtubeLink = menu.querySelector(".youtube-link");
+        const spotifyLink = menu.querySelector(".spotify-link");
+        const nctLink = menu.querySelector(".nct-link");
+
+        const youtubeSearchQuery = `${song.name} ${song.artist}`.trim();
+        youtubeLink.href = `https://www.google.com/search?q=${encodeURIComponent(
+          youtubeSearchQuery
+        )}+site:youtube.com&btnI=1`;
+        youtubeLink.target = "_blank";
+
+        const spotifySearchQuery = `${song.name} ${song.artist}`.trim();
+        spotifyLink.href = `https://open.spotify.com/search/${encodeURIComponent(
+          spotifySearchQuery
+        )}`;
+        spotifyLink.target = "_blank";
+
+        const nctSearchQuery = `${song.name} ${song.artist}`.trim();
+        nctLink.href = `https://www.google.com/search?q=${encodeURIComponent(
+          nctSearchQuery
+        )}+site:nhaccuatui.com&btnI=1`;
+        nctLink.target = "_blank";
+
+        menu.classList.add("active");
+
+        document.addEventListener("click", closeMenuOnClickOutside);
+      }
+
+      function closeMenuOnClickOutside(event) {
+        const menu = document.getElementById("platformMenu");
+        if (
+          !menu.contains(event.target) &&
+          !event.target.closest(".song-name")
+        ) {
+          menu.classList.remove("active");
+          document.removeEventListener("click", closeMenuOnClickOutside);
+        }
+      }
+
+      function renderSongs(filteredSongs = songs) {
+        const songList = document.getElementById("songList");
+
+        if (filteredSongs.length === 0) {
+          songList.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="no-results">
+                            <i class="fas fa-search"></i> Không tìm thấy bài hát nào
+                        </td>
+                    </tr>
+                `;
+          return;
+        }
+
+        if (currentSort.column) {
+          filteredSongs = sortSongs(filteredSongs, currentSort.column);
+        }
+
+        songList.innerHTML = filteredSongs
+          .map(
+            (song, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>
+                        <div class="song-name" onclick="showPlatformMenu(event, ${JSON.stringify(
+                          song
+                        ).replace(/"/g, "&quot;")})">
+                            <i class="fas fa-music"></i>
+                            <span style="text-decoration: none; color: black;">
+                              ${song.name}
+                            </span>
+                        </div>
+                    </td>
+                    <td>${song.artist}</td>
+                    <td>${song.releaseDate}</td>
+                    <td>${song.producer}</td>
+                    <td>${song.composer}</td>
+                    <td>${song.addDate}</td>
+                </tr>
+            `
+          )
+          .join("");
+
+        document.querySelectorAll("th i").forEach((icon) => {
+          icon.className = "fas fa-sort";
+        });
+
+        if (currentSort.column) {
+          const th = document.querySelector(
+            `th[data-sort="${currentSort.column}"]`
+          );
+          if (th) {
+            const icon = th.querySelector("i");
+            icon.className = `fas fa-sort-${
+              currentSort.direction === "asc" ? "up" : "down"
+            }`;
+          }
+        }
+      }
+
+      const searchInput = document.getElementById("searchInput");
+      const searchCategory = document.getElementById("searchCategory");
+
+      function handleSearch() {
+        const searchTerm = searchInput.value;
+        const category = searchCategory.value;
+        const filteredSongs = filterSongs(searchTerm, category);
+        renderSongs(filteredSongs);
+      }
+
+      document.querySelectorAll("th[data-sort]").forEach((th) => {
+        th.addEventListener("click", () => {
+          const column = th.dataset.sort;
+          if (currentSort.column === column) {
+            currentSort.direction =
+              currentSort.direction === "asc" ? "desc" : "asc";
+          } else {
+            currentSort.column = column;
+            currentSort.direction = "asc";
+          }
+          handleSearch();
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          const menu = document.getElementById("platformMenu");
+          menu.classList.remove("active");
+          document.removeEventListener("click", closeMenuOnClickOutside);
+        }
+      });
+
+      searchInput.addEventListener("input", handleSearch);
+      searchCategory.addEventListener("change", handleSearch);
+
+      renderSongs();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Qua Các Ngày</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #c75c5c;
+            --bg-light: #f8f9fa;
+            --bg-dark: #343a40;
+            --text-light: #f8f9fa;
+            --text-dark: #212529;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: background-color 0.5s, color 0.5s;
+            overflow-x: hidden;
+        }
+        
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem auto;
+            max-width: 600px;
+            position: relative;
+            animation: fadeIn 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            background-color: white;
+        }
+        
+        .dark-mode .search-container input {
+            background-color: #2c3136;
+            color: white;
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            box-shadow: 0 4px 25px rgba(74, 111, 165, 0.3);
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #b54a4a;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .nav-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            animation: fadeIn 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .nav-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .date-navigator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0 1rem;
+            animation: fadeIn 1s ease-out 0.9s forwards;
+            opacity: 0;
+        }
+        
+        .current-date {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+        }
+        
+        .dark-mode .current-date {
+            color: var(--text-light);
+        }
+        
+        .tabs-container {
+            display: flex;
+            margin: 2rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+        }
+        
+        .dark-mode .tab.active {
+            color: var(--text-light);
+        }
+        
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .tab.active::after {
+            transform: scaleX(1);
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .calendar-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .dark-mode .calendar-item {
+            background-color: #2c3136;
+        }
+        
+        .calendar-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .calendar-date {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .calendar-preview {
+            padding: 1rem;
+            min-height: 80px;
+        }
+        
+        .calendar-item.today {
+            border: 2px solid var(--accent-color);
+        }
+        
+        .calendar-item.today .calendar-date {
+            background-color: var(--accent-color);
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .dark-mode .event-card {
+            background-color: #2c3136;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .event-year {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .event-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            line-height: 1.3;
+        }
+        
+        .dark-mode .event-title {
+            color: #a8d0f0;
+        }
+        
+        .card-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .dark-mode .card-footer {
+            border-top-color: #3d4247;
+        }
+        
+        .loader {
+            display: none;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(74, 111, 165, 0.2);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            transform: translateY(20px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            z-index: 99;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-top:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            
+            .current-date {
+                font-size: 1.5rem;
+            }
+            
+            .nav-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <header>
+        <div class="header-container">
+            <h1>Lịch Sử Qua Các Ngày</h1>
+            <p class="subtitle">Khám phá những sự kiện đã định hình thế giới chúng ta trong lịch sử (skcn)</p>
+        </div>
+    </header>
+
+    <div class="container">
+    <div class="search-container">
+        <input type="text" id="dateSearch" placeholder="Tìm kiếm ngày (ví dụ: 1/1 hoặc 01/01)">
+        <button class="search-button" id="searchButton">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    
+    <div class="tabs-container">
+        <div class="tab active" data-tab="day-view">Xem theo ngày</div>
+        <div class="tab" data-tab="calendar-view">Lịch tổng quan</div>
+    </div>
+    
+    <div class="content-section active" id="day-view">
+        <div class="date-navigator">
+            <button class="nav-button" id="prevDay">
+                <i class="fas fa-chevron-left"></i> Ngày trước
+            </button>
+            <h2 class="current-date" id="currentDate">Ngày 11 tháng 03</h2>
+            <button class="nav-button" id="nextDay">
+                Ngày sau <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="loader" id="loader">
+            <div class="loader-circle"></div>
+        </div>
+        
+        <div class="grid-container" id="eventsContainer">
+        </div>
+    </div>
+    
+    <div class="content-section" id="calendar-view">
+        <div class="nav-section">
+            <button class="nav-button" id="prevMonth">
+                <i class="fas fa-chevron-left"></i> Tháng trước
+            </button>
+            <h2 class="current-date" id="currentMonth">Tháng 03, 2025</h2>
+            <button class="nav-button" id="nextMonth">
+                Tháng sau <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="calendar" id="calendarContainer">
+        </div>
+    </div>
+</div>
+
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+const eventsData = {
+    '01-01': [
+        { year: 1901, title: 'Thành lập Liên bang Australia' },
+        { year: 1863, title: 'Tuyên ngôn Giải phóng nô lệ' },
+        { year: 1959, title: 'Cách mạng Cuba' }
+    ],
+    '01-02': [
+        
+    ],
+    '01-03': [
+        
+    ],
+    '01-04': [
+        
+    ],
+    '01-05': [
+        
+    ],
+    '01-06': [
+        
+    ],
+    '01-07': [
+        
+    ],
+    '01-08': [
+        
+    ],
+    '01-09': [
+        
+    ],
+    '01-10': [
+        
+    ],
+    '01-11': [
+        
+    ],
+    '01-12': [
+        
+    ],
+    '01-13': [
+        
+    ],
+    '01-14': [
+        
+    ],
+    '01-15': [
+        
+    ],
+    '01-16': [
+        { year: 2007, title: 'Sinh nhật my friend (Văn Tiến)' }
+    ],
+    '01-17': [
+        
+    ],
+    '01-18': [
+        
+    ],
+    '01-19': [
+        
+    ],
+    '01-20': [
+        
+    ],
+    '01-21': [
+        
+    ],
+    '01-22': [
+        
+    ],
+    '01-23': [
+        
+    ],
+    '01-24': [
+        
+    ],
+    '01-25': [
+        
+    ],
+    '01-26': [
+        
+    ],
+    '01-27': [
+        { year: 1945, title: 'Giải phóng trại tử thần Auschwitz' },
+        { year: 1967, title: 'Thảm họa tàu vũ trụ Apollo 1' },
+        { year: 1973, title: 'Hiệp định Paris' }
+    ],
+    '01-28': [
+        
+    ],
+    '01-29': [
+        
+    ],
+    '01-30': [
+        
+    ],
+    '01-31': [
+        
+    ],
+    '02-01': [
+        
+    ],
+    '02-02': [
+        
+    ],
+    '02-03': [
+        
+    ],
+    '02-04': [
+        
+    ],
+    '02-05': [
+        
+    ],
+    '02-06': [
+        
+    ],
+    '02-07': [
+        
+    ],
+    '02-08': [
+        
+    ],
+    '02-09': [
+        
+    ],
+    '02-10': [
+        
+    ],
+    '02-11': [
+        
+    ],
+    '02-12': [
+        
+    ],
+    '02-13': [
+        
+    ],
+    '02-14': [
+        { year: 270, title: 'Thánh Valentine tử đạo' },
+        { year: 1929, title: 'Thảm sát ngày Valentine' },
+        { year: 1990, title: 'Tàu vũ trụ Voyager 1' }
+    ],
+    '02-15': [
+        
+    ],
+    '02-16': [
+        
+    ],
+    '02-17': [
+        
+    ],
+    '02-18': [
+        
+    ],
+    '02-19': [
+        
+    ],
+    '02-20': [
+        
+    ],
+    '02-21': [
+        
+    ],
+    '02-22': [
+        
+    ],
+    '02-23': [
+        
+    ],
+    '02-24': [
+        
+    ],
+    '02-25': [
+        
+    ],
+    '02-26': [
+        
+    ],
+    '02-27': [
+        
+    ],
+    '02-28': [
+        
+    ],
+    '03-01': [
+        
+    ],
+    '03-02': [
+        
+    ],
+    '03-03': [
+        
+    ],
+    '03-04': [
+        
+    ],
+    '03-05': [
+        
+    ],
+    '03-06': [
+        
+    ],
+    '03-07': [
+        
+    ],
+    '03-08': [
+        { year: 1917, title: 'Khởi đầu của Cách mạng Nga' },
+        { year: 1965, title: 'Quân đội Mỹ đổ bộ vào Việt Nam' },
+        { year: 1979, title: 'Quốc tế Phụ nữ' }
+    ],
+    '03-09': [
+        
+    ],
+    '03-10': [
+        
+    ],
+    '03-11': [
+        { year: 1942, title: 'Douglas MacArthur rời Philippines' },
+        { year: 2011, title: 'Động đất và sóng thần Tohoku' },
+        { year: 1990, title: 'Lithuania tuyên bố độc lập' },
+        { year: 1997, title: 'Paul McCartney được phong tước hiệp sĩ' }
+    ],
+    '03-12': [
+        
+    ],
+    '03-13': [
+        
+    ],
+    '03-14': [
+        
+    ],
+    '03-15': [
+        
+    ],
+    '03-16': [
+        
+    ],
+    '03-17': [
+        
+    ],
+    '03-18': [
+        
+    ],
+    '03-19': [
+        
+    ],
+    '03-20': [
+        
+    ],
+    '03-21': [
+        
+    ],
+    '03-22': [
+        
+    ],
+    '03-23': [
+        
+    ],
+    '03-24': [
+        
+    ],
+    '03-25': [
+        
+    ],
+    '03-26': [
+        
+    ],
+    '03-27': [
+        
+    ],
+    '03-28': [
+        
+    ],
+    '03-29': [
+        { year: 2007, title: 'Sinh nhật thằng tạo ra cái web này' },
+    ],
+    '03-30': [
+        
+    ],
+    '03-31': [
+        
+    ],
+    '04-01': [
+        
+    ],
+    '04-02': [
+        
+    ],
+    '04-03': [
+        
+    ],
+    '04-04': [
+        
+    ],
+    '04-05': [
+        
+    ],
+    '04-06': [
+        
+    ],
+    '04-07': [
+        
+    ],
+    '04-08': [
+        
+    ],
+    '04-09': [
+        
+    ],
+    '04-10': [
+        
+    ],
+    '04-11': [
+        
+    ],
+    '04-12': [
+        { year: 1961, title: 'Con người đầu tiên bay vào vũ trụ' },
+        { year: 1981, title: 'Chuyến bay đầu tiên của tàu con thoi' },
+        { year: 1945, title: 'Tổng thống Franklin D. Roosevelt qua đời' }
+    ],
+    '04-13': [
+        
+    ],
+    '04-14': [
+        
+    ],
+    '04-15': [
+        
+    ],
+    '04-16': [
+        
+    ],
+    '04-17': [
+        
+    ],
+    '04-18': [
+        
+    ],
+    '04-19': [
+        
+    ],
+    '04-20': [
+        
+    ],
+    '04-21': [
+        
+    ],
+    '04-22': [
+        
+    ],
+    '04-23': [
+        
+    ],
+    '04-24': [
+        
+    ],
+    '04-25': [
+        
+    ],
+    '04-26': [
+        
+    ],
+    '04-27': [
+        
+    ],
+    '04-28': [
+        
+    ],
+    '04-29': [
+        
+    ],
+    '04-30': [
+        
+    ],
+    '05-01': [
+        { year: 1886, title: 'Cuộc biểu tình Haymarket' },
+        { year: 1931, title: 'Khánh thành Tòa nhà Empire State' },
+        { year: 1978, title: 'Naomi Parker Fraley qua đời' }
+    ],
+    '05-02': [
+        
+    ],
+    '05-03': [
+        
+    ],
+    '05-04': [
+        
+    ],
+    '05-05': [
+        
+    ],
+    '05-06': [
+        
+    ],
+    '05-07': [
+        
+    ],
+    '05-08': [
+        
+    ],
+    '05-09': [
+        
+    ],
+    '05-10': [
+        
+    ],
+    '05-11': [
+        
+    ],
+    '05-12': [
+        
+    ],
+    '05-13': [
+        
+    ],
+    '05-14': [
+        
+    ],
+    '05-15': [
+        
+    ],
+    '05-16': [
+        
+    ],
+    '05-17': [
+        
+    ],
+    '05-18': [
+        
+    ],
+    '05-19': [
+        
+    ],
+    '05-20': [
+        
+    ],
+    '05-21': [
+        
+    ],
+    '05-22': [
+        
+    ],
+    '05-23': [
+        
+    ],
+    '05-24': [
+        
+    ],
+    '05-25': [
+        
+    ],
+    '05-26': [
+        
+    ],
+    '05-27': [
+        
+    ],
+    '05-28': [
+        
+    ],
+    '05-29': [
+        
+    ],
+    '05-30': [
+        
+    ],
+    '05-31': [
+        
+    ],
+    '06-01': [
+        
+    ],
+    '06-02': [
+        
+    ],
+    '06-03': [
+        
+    ],
+    '06-04': [
+        
+    ],
+    '06-05': [
+        
+    ],
+    '06-06': [
+        { year: 1944, title: 'D-Day' },
+        { year: 1968, title: 'Ám sát Robert F. Kennedy' },
+        { year: 1984, title: 'Tetris' }
+    ],
+    '06-07': [
+        
+    ],
+    '06-08': [
+        
+    ],
+    '06-09': [
+        
+    ],
+    '06-10': [
+        
+    ],
+    '06-11': [
+        
+    ],
+    '06-12': [
+        
+    ],
+    '06-13': [
+        
+    ],
+    '06-14': [
+        
+    ],
+    '06-15': [
+        
+    ],
+    '06-16': [
+        
+    ],
+    '06-17': [
+        
+    ],
+    '06-18': [
+        
+    ],
+    '06-19': [
+        
+    ],
+    '06-20': [
+        
+    ],
+    '06-21': [
+        
+    ],
+    '06-22': [
+        
+    ],
+    '06-23': [
+        
+    ],
+    '06-24': [
+        
+    ],
+    '06-25': [
+        
+    ],
+    '06-26': [
+        
+    ],
+    '06-27': [
+        
+    ],
+    '06-28': [
+        
+    ],
+    '06-29': [
+        
+    ],
+    '06-30': [
+        
+    ],
+    '07-01': [
+        
+    ],
+    '07-02': [
+        
+    ],
+    '07-03': [
+        
+    ],
+    '07-04': [
+        { year: 1776, title: 'Tuyên ngôn Độc lập Hoa Kỳ' },
+        { year: 1826, title: 'Thomas Jefferson và John Adams qua đời' },
+        { year: 1997, title: 'Tàu thăm dò Pathfinder đáp xuống sao Hỏa' }
+    ],
+    '07-05': [
+        
+    ],
+    '07-06': [
+        
+    ],
+    '07-07': [
+        
+    ],
+    '07-08': [
+        
+    ],
+    '07-09': [
+        
+    ],
+    '07-10': [
+        
+    ],
+    '07-11': [
+        
+    ],
+    '07-12': [
+        
+    ],
+    '07-13': [
+        
+    ],
+    '07-14': [
+        
+    ],
+    '07-15': [
+        
+    ],
+    '07-16': [
+        
+    ],
+    '07-17': [
+        
+    ],
+    '07-18': [
+        
+    ],
+    '07-19': [
+        
+    ],
+    '07-20': [
+        
+    ],
+    '07-21': [
+        
+    ],
+    '07-22': [
+        
+    ],
+    '07-23': [
+        
+    ],
+    '07-24': [
+        
+    ],
+    '07-25': [
+        
+    ],
+    '07-26': [
+        
+    ],
+    '07-27': [
+        
+    ],
+    '07-28': [
+        
+    ],
+    '07-29': [
+        
+    ],
+    '07-30': [
+        
+    ],
+    '07-31': [
+        
+    ],
+    '08-01': [
+        
+    ],
+    '08-02': [
+        
+    ],
+    '08-03': [
+        
+    ],
+    '08-04': [
+        
+    ],
+    '08-05': [
+        
+    ],
+    '08-06': [
+        { year: 1945, title: 'Thả bom nguyên tử xuống Hiroshima' },
+        { year: 1965, title: 'Luật Quyền Bỏ phiếu' },
+        { year: 1991, title: 'World Wide Web' }
+    ],
+    '08-07': [
+        
+    ],
+    '08-08': [
+        
+    ],
+    '08-09': [
+        
+    ],
+    '08-10': [
+        
+    ],
+    '08-11': [
+        
+    ],
+    '08-12': [
+        
+    ],
+    '08-13': [
+        
+    ],
+    '08-14': [
+        
+    ],
+    '08-15': [
+        
+    ],
+    '08-16': [
+        
+    ],
+    '08-17': [
+        
+    ],
+    '08-18': [
+        
+    ],
+    '08-19': [
+        
+    ],
+    '08-20': [
+        
+    ],
+    '08-21': [
+        
+    ],
+    '08-22': [
+        
+    ],
+    '08-23': [
+        
+    ],
+    '08-24': [
+        
+    ],
+    '08-25': [
+        
+    ],
+    '08-26': [
+        
+    ],
+    '08-27': [
+        
+    ],
+    '08-28': [
+        
+    ],
+    '08-29': [
+        
+    ],
+    '08-30': [
+        
+    ],
+    '08-31': [
+        
+    ],
+    '09-01': [
+        
+    ],
+    '09-02': [
+        
+    ],
+    '09-03': [
+        
+    ],
+    '09-04': [
+        
+    ],
+    '09-05': [
+        
+    ],
+    '09-06': [
+        
+    ],
+    '09-07': [
+        
+    ],
+    '09-08': [
+        
+    ],
+    '09-09': [
+        
+    ],
+    '09-10': [
+        
+    ],
+    '09-11': [
+        { year: 2001, title: 'Vụ khủng bố 11/9' },
+        { year: 1973, title: 'Đảo chính ở Chile' },
+        { year: 1609, title: 'Henry Hudson phát hiện đảo Manhattan' }
+    ],
+    '09-12': [
+        
+    ],
+    '09-13': [
+        
+    ],
+    '09-14': [
+        
+    ],
+    '09-15': [
+        
+    ],
+    '09-16': [
+        
+    ],
+    '09-17': [
+        
+    ],
+    '09-18': [
+        
+    ],
+    '09-19': [
+        
+    ],
+    '09-20': [
+        
+    ],
+    '09-21': [
+        
+    ],
+    '09-22': [
+        
+    ],
+    '09-23': [
+        
+    ],
+    '09-24': [
+        
+    ],
+    '09-25': [
+        
+    ],
+    '09-26': [
+        
+    ],
+    '09-27': [
+        
+    ],
+    '09-28': [
+        
+    ],
+    '09-29': [
+        { year: 2007, title: 'Sinh nhật my friend (Thái Duy)' }
+    ],
+    '09-30': [
+        
+    ],
+    '10-01': [
+        
+    ],
+    '10-02': [
+        
+    ],
+    '10-03': [
+        
+    ],
+    '10-04': [
+        
+    ],
+    '10-05': [
+        
+    ],
+    '10-06': [
+        
+    ],
+    '10-07': [
+        
+    ],
+    '10-08': [
+        
+    ],
+    '10-09': [
+        
+    ],
+    '10-10': [
+        
+    ],
+    '10-11': [
+        
+    ],
+    '10-12': [
+        
+    ],
+    '10-13': [
+        
+    ],
+    '10-14': [
+        
+    ],
+    '10-15': [
+        
+    ],
+    '10-16': [
+        
+    ],
+    '10-17': [
+        
+    ],
+    '10-18': [
+        
+    ],
+    '10-19': [
+        
+    ],
+    '10-20': [
+        
+    ],
+    '10-21': [
+        
+    ],
+    '10-22': [
+        
+    ],
+    '10-23': [
+        
+    ],
+    '10-24': [
+        
+    ],
+    '10-25': [
+        
+    ],
+    '10-26': [
+        
+    ],
+    '10-27': [
+        
+    ],
+    '10-28': [
+        
+    ],
+    '10-29': [
+        
+    ],
+    '10-30': [
+        
+    ],
+    '10-31': [
+        { year: 1517, title: 'Martin Luther và 95 luận đề' },
+        { year: 1926, title: 'Harry Houdini qua đời' },
+        { year: 1941, title: 'Hoàn thành Núi Rushmore' }
+    ],
+    '11-01': [
+        
+    ],
+    '11-02': [
+        
+    ],
+    '11-03': [
+        
+    ],
+    '11-04': [
+        
+    ],
+    '11-05': [
+        
+    ],
+    '11-06': [
+        
+    ],
+    '11-07': [
+        
+    ],
+    '11-08': [
+        
+    ],
+    '11-09': [
+        
+    ],
+    '11-10': [
+        
+    ],
+    '11-11': [
+        
+    ],
+    '11-12': [
+        
+    ],
+    '11-13': [
+        
+    ],
+    '11-14': [
+        
+    ],
+    '11-15': [
+        
+    ],
+    '11-16': [
+        
+    ],
+    '11-17': [
+        
+    ],
+    '11-18': [
+        
+    ],
+    '11-19': [
+        
+    ],
+    '11-20': [
+        
+    ],
+    '11-21': [
+        
+    ],
+    '11-22': [
+        { year: 1963, title: 'Ám sát John F. Kennedy' },
+        { year: 1990, title: 'Margaret Thatcher từ chức' },
+        { year: 1718, title: 'Cái chết của Râu Đen' }
+    ],
+    '11-23': [
+        
+    ],
+    '11-24': [
+        
+    ],
+    '11-25': [
+        
+    ],
+    '11-26': [
+        
+    ],
+    '11-27': [
+        
+    ],
+    '11-28': [
+        
+    ],
+    '11-29': [
+        
+    ],
+    '11-30': [
+        
+    ],
+    '12-01': [
+        
+    ],
+    '12-02': [
+        
+    ],
+    '12-03': [
+        
+    ],
+    '12-04': [
+        
+    ],
+    '12-05': [
+        
+    ],
+    '12-06': [
+        
+    ],
+    '12-07': [
+        
+    ],
+    '12-08': [
+        
+    ],
+    '12-09': [
+        
+    ],
+    '12-10': [
+        
+    ],
+    '12-11': [
+        
+    ],
+    '12-12': [
+        
+    ],
+    '12-13': [
+        
+    ],
+    '12-14': [
+        
+    ],
+    '12-15': [
+        
+    ],
+    '12-16': [
+        
+    ],
+    '12-17': [
+        
+    ],
+    '12-18': [
+        
+    ],
+    '12-19': [
+        
+    ],
+    '12-20': [
+        
+    ],
+    '12-21': [
+        
+    ],
+    '12-22': [
+        
+    ],
+    '12-23': [
+        
+    ],
+    '12-24': [
+        
+    ],
+    '12-25': [
+        { year: 800, title: 'Charlemagne được phong vương' },
+        { year: 1776, title: 'Washington vượt sông Delaware' },
+        { year: 1991, title: 'Mikhail Gorbachev từ chức' }
+    ],
+    '12-26': [
+        
+    ],
+    '12-27': [
+        
+    ],
+    '12-28': [
+        
+    ],
+    '12-29': [
+        
+    ],
+    '12-30': [
+        
+    ],
+    '12-31': [
+        
+    ],
+};
+
+function formatDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    return `Ngày ${day} tháng ${month}`;
+}
+
+function formatMonthYear(date) {
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `Tháng ${month}, ${year}`;
+}
+
+function getDateKey(date) {
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${month}-${day}`;
+}
+
+function displayEvents(date) {
+    const container = document.getElementById('eventsContainer');
+    container.innerHTML = '';
+    
+    document.getElementById('currentDate').textContent = formatDate(date);
+    
+    document.getElementById('loader').style.display = 'flex';
+    
+    setTimeout(() => {
+        const dateKey = getDateKey(date);
+        const events = eventsData[dateKey] || [];
+        
+        if (events.length === 0) {
+            container.innerHTML = `<div class="event-card" style="grid-column: 1 / -1; text-align: center; opacity: 1; transform: none;">
+                <div class="card-body">
+                    <h3>Không có sự kiện nào được ghi nhận vào ngày này</h3>
+                    <p>Hãy thử chọn một ngày khác hoặc thêm sự kiện mới.</p>
+                </div>
+            </div>`;
+        } else {
+            events.forEach((event, index) => {
+                const card = document.createElement('div');
+                card.className = 'event-card';
+                card.innerHTML = `
+                    <div class="card-header">Sự kiện lịch sử</div>
+                    <div class="card-body">
+                        <span class="event-year">${event.year}</span>
+                        <h3 class="event-title">${event.title}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <i class="fas fa-calendar-alt"></i> ${formatDate(date)}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        }
+        
+        document.getElementById('loader').style.display = 'none';
+    }, 600);
+}
+
+function generateCalendar(currentMonth) {
+    const calendarContainer = document.getElementById('calendarContainer');
+    calendarContainer.innerHTML = '';
+    
+    document.getElementById('currentMonth').textContent = formatMonthYear(currentMonth);
+    
+    const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+    const today = new Date();
+    
+    for (let i = 1; i <= daysInMonth; i++) {
+        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i);
+        const dateKey = getDateKey(date);
+        const events = eventsData[dateKey] || [];
+        
+        const calendarItem = document.createElement('div');
+        calendarItem.className = 'calendar-item';
+        
+        if (date.getDate() === today.getDate() && 
+            date.getMonth() === today.getMonth() && 
+            date.getFullYear() === today.getFullYear()) {
+            calendarItem.classList.add('today');
+        }
+        
+        calendarItem.innerHTML = `
+            <div class="calendar-date">
+                ${i} Tháng ${date.getMonth() + 1}
+            </div>
+            <div class="calendar-preview">
+                ${events.length > 0 ? `${events.length} sự kiện lịch sử` : 'Không có sự kiện'}
+            </div>
+        `;
+        
+        calendarItem.addEventListener('click', () => {
+            currentDate = new Date(date);
+            displayEvents(currentDate);
+            
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-tab="day-view"]').classList.add('active');
+            
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById('day-view').classList.add('active');
+            
+            scrollToTop();
+        });
+        
+        calendarContainer.appendChild(calendarItem);
+    }
+}
+
+let currentDate = new Date();
+let currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+window.addEventListener('DOMContentLoaded', () => {
+    displayEvents(currentDate);
+    
+    generateCalendar(currentMonth);
+    
+    document.getElementById('prevDay').addEventListener('click', () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(newDate.getDate() - 1);
+        currentDate = newDate;
+        displayEvents(currentDate);
+        scrollToTop();
+    });
+    
+    document.getElementById('nextDay').addEventListener('click', () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(newDate.getDate() + 1);
+        currentDate = newDate;
+        displayEvents(currentDate);
+        scrollToTop();
+    });
+    
+    document.getElementById('prevMonth').addEventListener('click', () => {
+        const newMonth = new Date(currentMonth);
+        newMonth.setMonth(newMonth.getMonth() - 1);
+        currentMonth = newMonth;
+        generateCalendar(currentMonth);
+    });
+    
+    document.getElementById('nextMonth').addEventListener('click', () => {
+        const newMonth = new Date(currentMonth);
+        newMonth.setMonth(newMonth.getMonth() + 1);
+        currentMonth = newMonth;
+        generateCalendar(currentMonth);
+    });
+    
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            const tabId = tab.getAttribute('data-tab');
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            if (tabId === 'calendar-view') {
+                generateCalendar(currentMonth);
+            }
+        });
+    });
+    
+    document.getElementById('searchButton').addEventListener('click', searchDate);
+    document.getElementById('dateSearch').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchDate();
+        }
+    });
+    
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    
+    window.addEventListener('scroll', toggleScrollButton);
+    document.getElementById('scrollTop').addEventListener('click', scrollToTop);
+    
+    document.getElementById('currentDate').addEventListener('transitionend', () => {
+        document.getElementById('currentDate').classList.remove('animate');
+    });
+});
+
+function searchDate() {
+    const searchInput = document.getElementById('dateSearch').value.trim();
+    const datePattern = /^(\d{1,2})[\/\-\.](\d{1,2})$/;
+    
+    if (datePattern.test(searchInput)) {
+        const matches = searchInput.match(datePattern);
+        const day = parseInt(matches[1], 10);
+        const month = parseInt(matches[2], 10);
+        
+        if (day >= 1 && day <= 31 && month >= 1 && month <= 12) {
+            const newDate = new Date(currentDate.getFullYear(), month - 1, day);
+            
+            if (newDate.getDate() !== day) {
+                showNotification('Ngày không hợp lệ cho tháng này');
+                return;
+            }
+            
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-tab="day-view"]').classList.add('active');
+            
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById('day-view').classList.add('active');
+            
+            currentDate = newDate;
+            displayEvents(currentDate);
+            
+            currentMonth = new Date(newDate.getFullYear(), newDate.getMonth(), 1);
+            
+            document.getElementById('currentDate').classList.add('animate');
+            scrollToTop();
+        } else {
+            showNotification('Vui lòng nhập ngày và tháng hợp lệ (ví dụ: 1/1 hoặc 01/01)');
+        }
+    } else {
+        showNotification('Vui lòng nhập đúng định dạng ngày/tháng (ví dụ: 1/1 hoặc 01/01)');
+    }
+}
+
+function showNotification(message) {
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.backgroundColor = 'rgba(220, 53, 69, 0.9)';
+    notification.style.color = 'white';
+    notification.style.padding = '1rem 2rem';
+    notification.style.borderRadius = '5px';
+    notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+    notification.style.zIndex = '1000';
+    notification.style.opacity = '0';
+    notification.style.transition = 'opacity 0.3s ease';
+    
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '1';
+    }, 10);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        
+        notification.addEventListener('transitionend', function() {
+            notification.remove();
+        });
+    }, 3000);
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('#themeToggle i');
+    
+    if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.querySelector('#themeToggle i').className = 'fas fa-sun';
+}
+
+function toggleScrollButton() {
+    const scrollBtn = document.getElementById('scrollTop');
+    
+    if (window.pageYOffset > 300) {
+        scrollBtn.classList.add('visible');
+    } else {
+        scrollBtn.classList.remove('visible');
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+window.addEventListener('scroll', () => {
+    const cards = document.querySelectorAll('.event-card');
+    const triggerBottom = window.innerHeight * 0.8;
+    
+    cards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        
+        if (cardTop < triggerBottom) {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }
+    });
+});
+
+const buttons = document.querySelectorAll('.nav-button, .search-button');
+buttons.forEach(button => {
+    button.addEventListener('mousedown', () => {
+        button.style.transform = 'scale(0.95) translateY(0)';
+    });
+    
+    button.addEventListener('mouseup', () => {
+        button.style.transform = '';
+    });
+    
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = '';
+    });
+});
+
+window.addEventListener('load', () => {
+    
+    showWelcomeMessage();
+});
+
+function showWelcomeMessage() {
+    const welcomeMessage = document.createElement('div');
+    welcomeMessage.className = 'welcome-message';
+    welcomeMessage.style.position = 'fixed';
+    welcomeMessage.style.top = '50%';
+    welcomeMessage.style.left = '50%';
+    welcomeMessage.style.transform = 'translate(-50%, -50%)';
+    welcomeMessage.style.backgroundColor = 'rgba(74, 111, 165, 0.95)';
+    welcomeMessage.style.color = 'white';
+    welcomeMessage.style.padding = '2rem';
+    welcomeMessage.style.borderRadius = '10px';
+    welcomeMessage.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+    welcomeMessage.style.zIndex = '1000';
+    welcomeMessage.style.textAlign = 'center';
+    welcomeMessage.style.maxWidth = '90%';
+    welcomeMessage.style.width = '400px';
+    welcomeMessage.style.opacity = '0';
+    welcomeMessage.style.transition = 'opacity 0.5s ease';
+    
+    const today = new Date();
+    const formattedDate = formatDate(today);
+    
+    welcomeMessage.innerHTML = `
+        <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">(Update 11.03.25) Chào mừng bạn!</h3>
+        <p style="margin-bottom: 1.5rem;">Hôm nay là ${formattedDate}. Khám phá các sự kiện lịch sử đã xảy ra vào ngày này.</p>
+        <button id="closeWelcome" style="background: white; color: var(--primary-color); border: none; padding: 0.7rem 1.5rem; border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.3s;">Bắt đầu khám phá</button>
+    `;
+    
+    document.body.appendChild(welcomeMessage);
+    
+    setTimeout(() => {
+        welcomeMessage.style.opacity = '1';
+    }, 500);
+    
+    document.getElementById('closeWelcome').addEventListener('click', () => {
+        welcomeMessage.style.opacity = '0';
+        
+        welcomeMessage.addEventListener('transitionend', function() {
+            welcomeMessage.remove();
+        });
+    });
+    
+    setTimeout(() => {
+        if (document.body.contains(welcomeMessage)) {
+            welcomeMessage.style.opacity = '0';
+            
+            welcomeMessage.addEventListener('transitionend', function() {
+                welcomeMessage.remove();
+            });
+        }
+    }, 2000);
+}
+</script>
+</body>
+</html>
