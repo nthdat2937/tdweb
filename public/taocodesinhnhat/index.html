@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tạo Web | TD Web</title>
   <style>
     * {
@@ -49,7 +49,7 @@
         0 0 100px rgba(255, 255, 255, 0.3);
       text-align: center;
       position: relative;
-      z-index: 1;
+      z-index: 10;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
       animation: slideIn 0.6s ease-out;
@@ -95,6 +95,8 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      position: relative;
+      z-index: 11;
     }
 
     input {
@@ -133,6 +135,7 @@
       letter-spacing: 1px;
       position: relative;
       overflow: hidden;
+      touch-action: manipulation;
     }
 
     button::before {
@@ -144,6 +147,7 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: left 0.5s ease;
+      pointer-events: none;
     }
 
     button:hover::before {
@@ -181,7 +185,7 @@
       h2 {
         font-size: 2em;
       }
-      
+
       .container {
         padding: 40px 30px;
       }
@@ -197,19 +201,19 @@
   <div class="container">
     <h2><span class="emoji">🎂</span> Thông Tin <span class="emoji">🎉</span></h2>
     <form onsubmit="goToBirthday(event)">
-      <input type="text" id="name" placeholder="nhập tên người thân yêu" required>
-      <input type="date" id="dob" required>
+      <input type="text" id="name" placeholder="nhập tên người thân yêu" required />
+      <input type="date" id="dob" required />
       <button type="submit">tạo trang sinh nhật</button>
     </form>
   </div>
 
   <script>
     function goToBirthday(e) {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const dob = document.getElementById('dob').value;
-        const data = btoa(`${name},${dob}`); // mã hoá base64
-        window.location.href = `birthday.html?data=${data}`;
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const dob = document.getElementById('dob').value;
+      const data = btoa(`${name},${dob}`);
+      window.location.href = `birthday.html?data=${data}`;
     }
 
     document.addEventListener('mousemove', (e) => {
@@ -223,7 +227,7 @@
         sparkle.style.animation = 'sparkle 1s ease-out forwards';
         sparkle.textContent = '✨';
         document.body.appendChild(sparkle);
-        
+
         setTimeout(() => sparkle.remove(), 1000);
       }
     });
