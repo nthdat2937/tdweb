@@ -223,7 +223,6 @@
     </audio>
 
     <script>
-        // Lấy dữ liệu từ URL parameters
         let userName = "Linh Đan";
         let userDOB = "16.08.2009";
         let birthDate = new Date("16/08/2009");
@@ -234,12 +233,11 @@
             
             if (data) {
                 try {
-                    const decoded = atob(data); // giải mã base64
+                    const decoded = atob(data);  
                     const [name, dob] = decoded.split(',');
                     
                     if (name && dob) {
                         userName = name;
-                        // Chuyển đổi format ngày từ YYYY-MM-DD sang DD.MM.YYYY
                         const dobParts = dob.split('-');
                         if (dobParts.length === 3) {
                             userDOB = `${dobParts[2]}.${dobParts[1]}.${dobParts[0]}`;
@@ -252,7 +250,6 @@
             }
         }
 
-        // Gọi hàm để lấy dữ liệu khi trang load
         getDataFromURL();
 
         const rainCanvas = document.getElementById('rainCanvas');
@@ -401,13 +398,13 @@
         const particles = [];
 
         const colors = [
-            'rgb(255, 0, 0)',     // Đỏ
-            'rgb(255, 127, 0)',   // Cam
-            'rgb(255, 255, 0)',   // Vàng
-            'rgb(0, 255, 0)',     // Lục
-            'rgb(0, 255, 255)',   // Lam
-            'rgb(0, 0, 255)',     // Chàm
-            'rgb(127, 0, 255)'    // Tím
+            'rgb(255, 0, 0)', 
+            'rgb(255, 127, 0)', 
+            'rgb(255, 255, 0)',  
+            'rgb(0, 255, 0)',    
+            'rgb(0, 255, 255)',  
+            'rgb(0, 0, 255)',    
+            'rgb(127, 0, 255)' 
         ];
 
         class Particle {
@@ -485,7 +482,6 @@
             init: function () {
                 try {
                     S.Drawing.init('#particleCanvas');
-                    // Sử dụng dữ liệu động từ URL
                     S.UI.simulate(`❤️|#countdown|Happy|Birthday|To|${userName}|${userDOB}`);
                     S.Drawing.loop(function () {
                         S.Shape.render();
@@ -635,13 +631,12 @@
                             }
                             break;
                         default:
-                            // Sử dụng dữ liệu động cho ngày sinh
                             if (current === userDOB) {
                                 S.Shape.switchShape(S.ShapeBuilder.multilineText([userName, userDOB]));
                                 fireworksCanvas.style.display = 'block';
                                 animateFireworks();
                             } else {
-                                S.Shape.switchShape(S.ShapeBuilder.letter(current[0] === cmd ? 'HacPai' : current));
+                                S.Shape.switchShape(S.ShapeBuilder.letter(current[0] === cmd ? 'nthdat' : current));
                                 fireworksCanvas.style.display = 'none';
                             }
                     }

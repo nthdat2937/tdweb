@@ -1,3 +1,0 @@
-RewriteEngine on
-RewriteCond %{HTTP_REFERER} !^https://adtd.glitch.me\.com/ [NC]
-RewriteRule ^restricted.html$ - [F]

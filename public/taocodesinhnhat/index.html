@@ -22,7 +22,6 @@
       position: relative;
     }
 
-    /* Animated background particles */
     body::before {
       content: '';
       position: absolute;
@@ -160,7 +159,6 @@
       transform: translateY(-1px);
     }
 
-    /* Floating decorations */
     .decoration {
       position: absolute;
       font-size: 30px;
@@ -179,7 +177,6 @@
     .decoration:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 4s; }
     .decoration:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 6s; }
 
-    /* Responsive */
     @media (max-width: 480px) {
       h2 {
         font-size: 2em;
@@ -215,7 +212,6 @@
         window.location.href = `birthday.html?data=${data}`;
     }
 
-    // Add sparkle effect on mouse move
     document.addEventListener('mousemove', (e) => {
       if (Math.random() > 0.98) {
         const sparkle = document.createElement('div');
@@ -232,7 +228,6 @@
       }
     });
 
-    // Sparkle animation
     const style = document.createElement('style');
     style.textContent = `
       @keyframes sparkle {

@@ -278,7 +278,7 @@
             if (isAIMode && gameActive && currentPlayer === 'O') {
                 isAIThinking = true;
                 thinkingIndicator.classList.add('active');
-                await new Promise(resolve => setTimeout(resolve, 500)); // Minimum thinking time
+                await new Promise(resolve => setTimeout(resolve, 500)); 
                 const aiMove = getAIMove();
                 thinkingIndicator.classList.remove('active');
                 isAIThinking = false;

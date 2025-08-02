@@ -2241,13 +2241,11 @@
 
             updateActiveMenuState();
 
-            // Reset visibility of all features
             const featureCards = document.querySelectorAll(".feature-card");
             featureCards.forEach((card) => {
               card.style.display = "block";
             });
 
-            // Restrict features based on user type
             const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
             if (loggedInUser && loggedInUser.type === "User") {
               featureCards.forEach((card) => {
@@ -2375,10 +2373,10 @@
           const navLinks = document.querySelectorAll(".nav-link");
 
           let currentSection = "";
-          const scrollPosition = window.scrollY + 100; // Offset cho navbar
+          const scrollPosition = window.scrollY + 100; 
 
           sections.forEach((section) => {
-            const sectionTop = section.offsetTop - 100; // Offset cho navbar
+            const sectionTop = section.offsetTop - 100; 
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute("id");
 
@@ -2446,7 +2444,7 @@
           sparkle.style.left = x + offsetX + "px";
           sparkle.style.top = y + offsetY + "px";
 
-          const hue = Math.floor(Math.random() * 60) + 30; // Vàng đến cam
+          const hue = Math.floor(Math.random() * 60) + 30;  
           sparkle.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
           sparkle.style.boxShadow = `0 0 10px 2px hsl(${hue}, 100%, 70%), 
                                 0 0 20px 5px hsl(${hue}, 100%, 50%), 
