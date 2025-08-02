@@ -26,6 +26,20 @@
             font-size: 24px;
         }
 
+        .copy {
+            color: white;
+            font-size: 24px;
+            border: white 2px solid;
+            padding: 2px;
+            border-radius: 5px;
+        }
+
+        .copy:hover {
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
         #rainCanvas {
             position: absolute;
             top: 0;
@@ -187,6 +201,7 @@
     <canvas id="rainCanvas"></canvas>
     <canvas id="fireworksCanvas"></canvas>
     <div class="sign">#nthdat</div>
+    <div><span class="copy" onclick="copylink()">Copy link</span></div>
     
     <div id="startButton">🎁 Mở món quà bí mật 💝</div>
     
@@ -914,6 +929,15 @@
                 }
             };
         }());
+
+        function copylink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert("Đã sao chép liên kết!");
+            }).catch(err => {
+                console.error('Không thể sao chép liên kết: ', err);
+            });
+        }
     </script>
 </body>
 </html>
