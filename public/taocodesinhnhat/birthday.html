@@ -208,6 +208,38 @@
     </audio>
 
     <script>
+        // Lấy dữ liệu từ URL parameters
+        let userName = "Linh Đan";
+        let userDOB = "16.08.2009";
+        let birthDate = new Date("16/08/2009");
+
+        function getDataFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data');
+            
+            if (data) {
+                try {
+                    const decoded = atob(data); // giải mã base64
+                    const [name, dob] = decoded.split(',');
+                    
+                    if (name && dob) {
+                        userName = name;
+                        // Chuyển đổi format ngày từ YYYY-MM-DD sang DD.MM.YYYY
+                        const dobParts = dob.split('-');
+                        if (dobParts.length === 3) {
+                            userDOB = `${dobParts[2]}.${dobParts[1]}.${dobParts[0]}`;
+                            birthDate = new Date(dob);
+                        }
+                    }
+                } catch (error) {
+                    console.log("Không thể giải mã dữ liệu:", error);
+                }
+            }
+        }
+
+        // Gọi hàm để lấy dữ liệu khi trang load
+        getDataFromURL();
+
         const rainCanvas = document.getElementById('rainCanvas');
         const rainCtx = rainCanvas.getContext('2d');
         const startButton = document.getElementById('startButton');
@@ -283,9 +315,8 @@
 
         function show_date_time() {
             try {
-                const BirthDay = new Date("16/08/2009");
                 const today = new Date();
-                const timeold = (today.getTime() - BirthDay.getTime());
+                const timeold = (today.getTime() - birthDate.getTime());
                 const msPerDay = 24 * 60 * 60 * 1000;
                 const e_daysold = timeold / msPerDay;
                 const daysold = Math.floor(e_daysold);
@@ -439,7 +470,8 @@
             init: function () {
                 try {
                     S.Drawing.init('#particleCanvas');
-                    S.UI.simulate("❤️|#countdown|Happy|Birthday|To|Linh Đan|16.08.2009");
+                    // Sử dụng dữ liệu động từ URL
+                    S.UI.simulate(`❤️|#countdown|Happy|Birthday|To|${userName}|${userDOB}`);
                     S.Drawing.loop(function () {
                         S.Shape.render();
                     });
@@ -588,8 +620,9 @@
                             }
                             break;
                         default:
-                            if (current === '16.08.2009') {
-                                S.Shape.switchShape(S.ShapeBuilder.multilineText(['Linh Đan', '16.08.2009']));
+                            // Sử dụng dữ liệu động cho ngày sinh
+                            if (current === userDOB) {
+                                S.Shape.switchShape(S.ShapeBuilder.multilineText([userName, userDOB]));
                                 fireworksCanvas.style.display = 'block';
                                 animateFireworks();
                             } else {
