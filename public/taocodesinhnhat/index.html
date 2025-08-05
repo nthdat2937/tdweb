@@ -210,27 +210,47 @@
   <script>
     function goToBirthday(e) {
       e.preventDefault();
-      const name = document.getElementById('name').value;
-      const dob = document.getElementById('dob').value;
-      const data = btoa(`${name},${dob}`);
-      window.location.href = `birthday.html?data=${data}`;
+      try {
+        const name = document.getElementById('name').value.trim();
+        const dob = document.getElementById('dob').value;
+        
+        if (!name || !dob) {
+          alert('Vui lòng điền đầy đủ thông tin!');
+          return;
+        }
+
+        // Use encodeURIComponent to handle special characters
+        const data = encodeURIComponent(btoa(unescape(encodeURIComponent(`${name},${dob}`))));
+        window.location.href = `birthday.html?data=${data}`;
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Có lỗi xảy ra, vui lòng thử lại!');
+      }
     }
 
+    // Optimize sparkle effect with throttling
+    let lastSparkle = 0;
     document.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.98) {
-        const sparkle = document.createElement('div');
-        sparkle.style.position = 'fixed';
-        sparkle.style.left = e.clientX + 'px';
-        sparkle.style.top = e.clientY + 'px';
-        sparkle.style.pointerEvents = 'none';
-        sparkle.style.fontSize = '20px';
-        sparkle.style.animation = 'sparkle 1s ease-out forwards';
-        sparkle.textContent = '✨';
-        document.body.appendChild(sparkle);
-
-        setTimeout(() => sparkle.remove(), 1000);
+      const now = Date.now();
+      if (now - lastSparkle > 50 && Math.random() > 0.98) {
+        lastSparkle = now;
+        createSparkle(e.clientX, e.clientY);
       }
     });
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.style.position = 'fixed';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      sparkle.style.pointerEvents = 'none';
+      sparkle.style.fontSize = '20px';
+      sparkle.style.animation = 'sparkle 1s ease-out forwards';
+      sparkle.textContent = '✨';
+      document.body.appendChild(sparkle);
+
+      sparkle.addEventListener('animationend', () => sparkle.remove());
+    }
 
     const style = document.createElement('style');
     style.textContent = `
