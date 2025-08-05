@@ -219,9 +219,10 @@
           return;
         }
 
-        // Use encodeURIComponent to handle special characters
-        const data = encodeURIComponent(btoa(unescape(encodeURIComponent(`${name},${dob}`))));
-        window.location.href = `birthday.html?data=${data}`;
+        // Fixed encoding for Vietnamese
+        const str = `${name},${dob}`;
+        const encoded = btoa(encodeURIComponent(str));
+        window.location.href = `birthday.html?data=${encoded}`;
       } catch (error) {
         console.error('Error:', error);
         alert('Có lỗi xảy ra, vui lòng thử lại!');

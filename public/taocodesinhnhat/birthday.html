@@ -233,8 +233,9 @@
             
             if (data) {
                 try {
-                    const decoded = atob(data);  
-                    const [name, dob] = decoded.split(',');
+                    // Fixed decoding for Vietnamese
+                    const decodedStr = decodeURIComponent(atob(data));
+                    const [name, dob] = decodedStr.split(',');
                     
                     if (name && dob) {
                         userName = name;
@@ -245,7 +246,7 @@
                         }
                     }
                 } catch (error) {
-                    console.log("Không thể giải mã dữ liệu:", error);
+                    console.error("Lỗi giải mã:", error);
                 }
             }
         }
