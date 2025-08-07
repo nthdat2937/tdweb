@@ -277,5 +277,13 @@ document.getElementById('imageModal').addEventListener('click', (e) => {
     }
 });
 
-// Initial load
 displayImages(imageFiles);
+
+const age = prompt("Vì kho ảnh này do AI Generate nên có 1 số ảnh 18+.\nNên vui lòng nhập tuổi thật!",16);
+
+    if (!age || isNaN(age) || Number(age) < 18) {
+      alert("🚫 Bạn chưa đủ tuổi. Quay lại Google nhé!");
+      window.location.href = "https://google.com";
+    } else {
+      alert("✅ Chào mừng bạn đã đủ 18 tuổi!");
+    }
