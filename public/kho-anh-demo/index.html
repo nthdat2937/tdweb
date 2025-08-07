@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="left-section">
+            <i class="fas fa-camera"></i>
+            <h1>PixelGallery</h1>
+        </div>
+        
+        <div class="middle-section">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+            <input type="text" placeholder="Search images by name..." id="searchInput">
+        </div>
+    </header>
+
+    <main>
+        <div class="image-grid" id="imageGrid">
+            <!-- Images will be loaded here dynamically -->
+        </div>
+    </main>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="Full size image">
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
