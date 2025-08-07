@@ -284,6 +284,9 @@ const age = prompt("Vì kho ảnh này do AI Generate nên có 1 số ảnh 18+.
     if (!age || isNaN(age) || Number(age) < 18) {
       alert("🚫 Bạn chưa đủ tuổi. Quay lại Trang chủ nhé!");
       window.location.href = "https://2937.vercel.app";
+    } if (!age || isNaN(age) || Number(age) > 60) {
+        alert("🚫 Bạn xạo l*n. Cút đi nhé!");
+      window.location.href = "https://2937.vercel.app";
     } else {
       alert("✅ Chào mừng bạn đã đủ 18 tuổi!");
     }
