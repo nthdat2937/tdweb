@@ -253,7 +253,15 @@ body {
 .loading-letter:nth-child(13) {
   animation-delay: 1.60s;
 }
-
+.loading-letter:nth-child(14) {
+  animation-delay: 1.76s;
+}
+.loading-letter:nth-child(15) {
+  animation-delay: 1.92s;
+}
+.loading-letter:nth-child(16) {
+  animation-delay: 2.08s;
+}
 
 @keyframes bounce {
   0%,
