@@ -1,0 +1,2432 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TD Web - Hệ Thống Quản Lý</title>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <meta property="og:title" content="TD Web" />
+    <meta property="og:description" content="Trang web tự thiết kế bới nthdat" />
+    <meta property="og:image" content="image/chrome-capture-2025-8-5.png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --primary-color: #6a11cb;
+        --secondary-color: #2575fc;
+        --accent-color: #ff416c;
+        --text-color: #333;
+        --bg-color: #f9f9f9;
+
+        --dark-bg: #121212;
+        --dark-surface: #1e1e1e;
+        --dark-primary: #7c4dff;
+        --dark-secondary: #4dabff;
+        --dark-text: #ffffff;
+        --dark-text-secondary: rgba(255, 255, 255, 0.7);
+        --dark-border: rgba(255, 255, 255, 0.12);
+
+        --light-bg: #f5f5f5;
+        --light-surface: #ffffff;
+        --light-primary: #6200ea;
+        --light-secondary: #0091ea;
+        --light-text: #212121;
+        --light-text-secondary: rgba(0, 0, 0, 0.6);
+        --light-border: rgba(0, 0, 0, 0.12);
+      }
+
+      [data-theme="dark"] {
+        --theme-bg: var(--dark-bg);
+        --theme-surface: var(--dark-surface);
+        --theme-primary: var(--dark-primary);
+        --theme-secondary: var(--dark-secondary);
+        --theme-text: var(--dark-text);
+        --theme-text-secondary: var(--dark-text-secondary);
+        --theme-border: var(--dark-border);
+      }
+
+      [data-theme="light"] {
+        --theme-bg: var(--light-bg);
+        --theme-surface: var(--light-surface);
+        --theme-primary: var(--light-primary);
+        --theme-secondary: var(--light-secondary);
+        --theme-text: var(--light-text);
+        --theme-text-secondary: var(--light-text-secondary);
+        --theme-border: var(--light-border);
+      }
+
+      body {
+        background: #000;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        perspective: 1000px;
+      }
+
+      .particle-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      .gradient-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59);
+        background-size: 300% 300%;
+        animation: gradientShift 15s ease infinite;
+        z-index: -2;
+        opacity: 0.8;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .login-container {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        width: 450px;
+        padding: 50px 40px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transform-style: preserve-3d;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        transition: all 0.5s ease;
+        position: relative;
+        animation: floatIn 1.2s ease-out forwards;
+      }
+
+      @keyframes floatIn {
+        0% {
+          opacity: 0;
+          transform: perspective(1000px) translateY(50px) rotateX(10deg);
+        }
+        100% {
+          opacity: 1;
+          transform: perspective(1000px) translateY(0) rotateX(0);
+        }
+      }
+
+      .glass-effect {
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(30px);
+        animation: glassPulse 5s infinite alternate;
+      }
+
+      @keyframes glassPulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.3;
+        }
+        100% {
+          transform: scale(1.8);
+          opacity: 0.1;
+        }
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .login-header h1 {
+        color: #fff;
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        position: relative;
+        display: inline-block;
+      }
+
+      .login-header h1::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background: linear-gradient(
+          to right,
+          var(--secondary-color),
+          var(--accent-color)
+        );
+        transition: width 0.5s ease;
+        animation: lineExtend 1s 0.5s forwards;
+      }
+
+      @keyframes lineExtend {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 60%;
+        }
+      }
+
+      .login-header p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+      }
+
+      .input-group {
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 18px 15px;
+        font-size: 16px;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        border-radius: 12px;
+        outline: none;
+        letter-spacing: 0.5px;
+        transition: all 0.3s;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        position: relative;
+        backdrop-filter: blur(8px);
+      }
+
+      .input-group input::placeholder {
+        color: transparent;
+      }
+
+      .input-group label {
+        position: absolute;
+        top: 18px;
+        left: 15px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 16px;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .input-group input:focus,
+      .input-group input:not(:placeholder-shown) {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .input-group input:focus + label,
+      .input-group input:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 15px;
+        font-size: 12px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0 5px;
+        font-weight: 500;
+        z-index: 3;
+      }
+
+      .input-group input:focus {
+        box-shadow: 0 0 15px rgba(37, 117, 252, 0.3);
+      }
+
+      .input-icon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        z-index: 2;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .input-group input:focus ~ .input-icon,
+      .input-group input:not(:placeholder-shown) ~ .input-icon {
+        color: var(--secondary-color);
+      }
+
+      .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        z-index: 5;
+        position: relative;
+      }
+
+      .remember {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .remember input {
+        display: none;
+      }
+
+      .remember-checkbox {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        margin-right: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: inline-block;
+        transition: all 0.3s;
+      }
+
+      .remember input:checked + .remember-checkbox::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--secondary-color);
+        font-size: 12px;
+      }
+
+      .remember span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+      }
+
+      .forgot-password {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        text-decoration: none;
+        transition: all 0.3s;
+        position: relative;
+        z-index: 5;
+      }
+
+      .forgot-password::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--secondary-color);
+        transition: width 0.3s;
+      }
+
+      .forgot-password:hover {
+        color: #fff;
+      }
+
+      .forgot-password:hover::after {
+        width: 100%;
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 18px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 10px 25px rgba(37, 117, 252, 0.4);
+        position: relative;
+        overflow: hidden;
+        letter-spacing: 1px;
+        z-index: 5;
+      }
+
+      .login-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .login-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(37, 117, 252, 0.6);
+      }
+
+      .login-button:hover::before {
+        left: 100%;
+      }
+
+      .login-button:active {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+      }
+
+      .divider {
+        position: relative;
+        margin: 35px 0;
+        text-align: center;
+      }
+
+      .divider span {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        padding: 0 15px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+        z-index: 5;
+      }
+
+      .social-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .social-btn svg {
+        width: 24px;
+        height: 24px;
+        z-index: 1;
+        transition: all 0.3s;
+      }
+
+      .social-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(0);
+        transition: 0.5s;
+        border-radius: 50%;
+      }
+
+      .social-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .social-btn:hover::before {
+        transform: scale(1.2);
+      }
+
+      .social-btn:hover svg {
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+      }
+
+      .tilt-effect {
+        transition: transform 0.5s ease-out;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+      }
+
+      .pulse-effect {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(106, 17, 203, 0.8),
+            0 0 30px rgba(37, 117, 252, 0.5);
+        }
+        100% {
+          box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+      }
+
+      .glow-effect {
+        animation: glow 2s infinite;
+      }
+
+      .ripple {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      .loading {
+        position: relative;
+      }
+
+      .loading::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: rotate 0.8s linear infinite;
+      }
+
+      @keyframes rotate {
+        to {
+          transform: translateY(-50%) rotate(360deg);
+        }
+      }
+
+      @keyframes focusIn {
+        0% {
+          filter: blur(10px);
+          transform: scale(0.95);
+        }
+        100% {
+          filter: blur(0);
+          transform: scale(1);
+        }
+      }
+
+      .focus-in {
+        animation: focusIn 0.8s forwards;
+      }
+
+      .cosmic-rays {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.5;
+      }
+
+      .cosmic-ray {
+        position: absolute;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        height: 1px;
+        width: 180px;
+        animation: cosmicRay 6s linear infinite;
+        transform: rotate(45deg);
+      }
+
+      @keyframes cosmicRay {
+        0% {
+          transform: translateX(-100px) rotate(45deg);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        40% {
+          opacity: 0.3;
+        }
+        60% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateX(calc(100vw + 100px)) rotate(45deg);
+          opacity: 0;
+        }
+      }
+
+      .shadow-3d {
+        position: absolute;
+        bottom: -20px;
+        left: 10%;
+        width: 80%;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        filter: blur(15px);
+        border-radius: 50%;
+        z-index: -1;
+        animation: shadow3d 5s infinite alternate;
+      }
+
+      @keyframes shadow3d {
+        0% {
+          transform: scaleX(0.9);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scaleX(1.1);
+          opacity: 0.8;
+        }
+      }
+
+      .accounts-list {
+        display: none;
+      }
+
+      .homepage {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--theme-bg);
+        z-index: 999;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: background-color 0.3s ease;
+        color: var(--theme-text);
+      }
+
+      .nav-container {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background-color: var(--theme-surface);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5%;
+        height: 70px;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-logo {
+        height: 40px;
+        width: 40px;
+        background: linear-gradient(
+          45deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        margin-right: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--theme-text);
+        letter-spacing: 0.5px;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-link {
+        margin: 0 15px;
+        position: relative;
+      }
+
+      .nav-link a {
+        color: var(--theme-text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+        padding: 10px 5px;
+        display: inline-block;
+      }
+
+      .nav-link a:hover {
+        color: var(--theme-primary);
+      }
+
+      .nav-link.active a {
+        color: var(--theme-primary);
+      }
+
+      .nav-link.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(
+          to right,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        border-radius: 3px;
+        animation: fadeInUp 0.3s forwards;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-right: 15px;
+        color: var(--theme-text);
+      }
+
+      .theme-toggle:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+      }
+
+      .user-dropdown {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 8px 15px;
+        border-radius: 30px;
+        transition: all 0.3s;
+      }
+
+      .user-info:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(
+          45deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        margin-right: 10px;
+      }
+
+      .user-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--theme-text);
+      }
+
+      .logout {
+        color: white;
+        background: rgba(255, 65, 108, 0.8);
+        border: none;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .logout:hover {
+        background: rgba(255, 65, 108, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(255, 65, 108, 0.3);
+      }
+
+      .scroll-progress-container {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 999;
+      }
+
+      .scroll-progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(
+          to right,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        transition: width 0.1s;
+      }
+
+      .banner {
+        position: relative;
+        height: 500px;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+      }
+
+      .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+      }
+
+      .banner-content {
+        text-align: center;
+        color: white;
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 20px;
+      }
+
+      .banner-title {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        animation: fadeInUp 1s forwards;
+      }
+
+      .banner-subtitle {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        opacity: 0.9;
+        animation: fadeInUp 1s 0.3s forwards;
+      }
+
+      .banner-button {
+        display: inline-block;
+        background: white;
+        color: var(--theme-primary);
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        animation: fadeInUp 1s 0.6s forwards;
+      }
+
+      .banner-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .main-content {
+        padding: 50px 5%;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--theme-text);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(
+          to right,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        border-radius: 3px;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .feature-card {
+        background: var(--theme-surface);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s;
+        border: 1px solid var(--theme-border);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          45deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--theme-text);
+      }
+
+      .feature-desc {
+        color: var(--theme-text-secondary);
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .feature-link {
+        color: var(--theme-primary);
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .feature-link i {
+        margin-left: 5px;
+        transition: transform 0.3s;
+      }
+
+      .feature-link:hover i {
+        transform: translateX(5px);
+      }
+
+      .testimonials {
+        margin-bottom: 60px;
+        position: relative;
+      }
+
+      .testimonials-container {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .testimonial-card {
+        background: var(--theme-surface);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        margin: 20px;
+        border: 1px solid var(--theme-border);
+        position: relative;
+      }
+
+      .testimonial-text {
+        font-size: 16px;
+        line-height: 1.7;
+        color: var(--theme-text);
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .testimonial-text::before {
+        content: "";
+        font-size: 80px;
+        position: absolute;
+        top: -20px;
+        left: -15px;
+        color: rgba(106, 17, 203, 0.1);
+        font-family: sans-serif;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .testimonial-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        background: linear-gradient(
+          45deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .testimonial-info h4 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--theme-text);
+      }
+
+      .testimonial-info p {
+        font-size: 14px;
+        color: var(--theme-text-secondary);
+      }
+
+      .testimonial-rating {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: #ffc107;
+      }
+
+      .footer {
+        background-color: var(--theme-surface);
+        border-top: 1px solid var(--theme-border);
+        padding: 60px 5% 20px;
+        position: relative;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .footer-logo {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-icon {
+        height: 40px;
+        width: 40px;
+        background: linear-gradient(
+          45deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        margin-right: 10px;
+      }
+
+      .footer-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--theme-text);
+        letter-spacing: 0.5px;
+      }
+
+      .footer-about p {
+        color: var(--theme-text-secondary);
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        color: var(--theme-text-secondary);
+      }
+
+      .social-icon:hover {
+        background-color: var(--theme-primary);
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .footer-links h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--theme-text);
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: var(--theme-text-secondary);
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .footer-links a i {
+        margin-right: 8px;
+        font-size: 12px;
+      }
+
+      .footer-links a:hover {
+        color: var(--theme-primary);
+        transform: translateX(5px);
+      }
+
+      .footer-contact p {
+        color: var(--theme-text-secondary);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .footer-contact i {
+        margin-right: 10px;
+        color: var(--theme-primary);
+        font-size: 18px;
+        margin-top: 3px;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid var(--theme-border);
+      }
+
+      .footer-bottom p {
+        color: var(--theme-text-secondary);
+        font-size: 14px;
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(
+          45deg,
+          var(--theme-primary),
+          var(--theme-secondary)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 999;
+      }
+
+      .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+        animation: bounce 2s infinite;
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        animation: none;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .section {
+        scroll-margin-top: 80px;
+      }
+
+      .mobile-menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: var(--theme-text);
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 0 20px;
+          height: auto;
+        }
+
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          padding: 20px 0;
+          position: absolute;
+          top: 70px;
+          left: 0;
+          background-color: var(--theme-surface);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.show {
+          display: flex;
+          animation: slideDown 0.3s forwards;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .nav-link {
+          margin: 10px 0;
+          text-align: center;
+        }
+
+        .nav-link.active::after {
+          width: 50px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .banner {
+          height: 400px;
+        }
+
+        .banner-title {
+          font-size: 36px;
+        }
+
+        .banner-subtitle {
+          font-size: 16px;
+        }
+
+        .back-to-top {
+          bottom: 20px;
+          right: 20px;
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .sparkle {
+        position: absolute;
+        pointer-events: none;
+        width: 6px;
+        height: 6px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        box-shadow: 0 0 10px 2px #fff, 0 0 20px 5px rgba(255, 215, 0, 0.5),
+          0 0 30px 7px rgba(255, 140, 0, 0.3);
+        z-index: 9999;
+        opacity: 0;
+        transform: scale(0);
+        animation: sparkle 1s ease-in-out forwards;
+      }
+
+      @keyframes sparkle {
+        0% {
+          opacity: 1;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+      }
+
+      .cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 0%,
+          rgba(255, 215, 0, 0.4) 60%,
+          transparent 100%
+        );
+        box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.3);
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9998;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gradient-bg"></div>
+
+    <div class="particle-container" id="particles"></div>
+
+    <div class="cosmic-rays" id="cosmicRays"></div>
+
+    <div class="login-container tilt-effect focus-in" id="loginContainer">
+      <div class="glass-effect"></div>
+      <div
+        class="glass-effect"
+        style="
+          top: 50%;
+          left: -30px;
+          width: 80px;
+          height: 80px;
+          animation-delay: 2s;
+        "
+      ></div>
+
+      <div class="shadow-3d"></div>
+
+      <div class="login-header">
+        <h1 class="animate__animated animate__fadeInDown">Đăng Nhập</h1>
+        <p class="animate__animated animate__fadeIn animate__delay-1s">
+          Chào mừng trở lại! Đăng nhập để tiếp tục
+        </p>
+      </div>
+
+      <form id="loginForm">
+        <div
+          class="input-group animate__animated animate__fadeInUp animate__delay-1s"
+        >
+          <input type="text" id="username" placeholder=" " required />
+          <label for="username">Tên đăng nhập</label>
+          <div class="input-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+        </div>
+
+        <div
+          class="input-group animate__animated animate__fadeInUp animate__delay-1s"
+        >
+          <input type="password" id="password" placeholder=" " required />
+          <label for="password">Mật khẩu</label>
+          <div class="input-icon" id="togglePassword">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div
+          class="remember-forgot animate__animated animate__fadeIn animate__delay-1s"
+        >
+          <label class="remember">
+            <input type="checkbox" id="remember" />
+            <span class="remember-checkbox"></span>
+            <span>Ghi nhớ đăng nhập</span>
+          </label>
+          <a href="#" class="forgot-password">Quên mật khẩu?</a>
+        </div>
+
+        <button
+          type="submit"
+          id="loginButton"
+          class="login-button animate__animated animate__fadeIn animate__delay-1s glow-effect"
+        >
+          Đăng Nhập
+        </button>
+      </form>
+    </div>
+
+    <div class="homepage" id="homepage">
+      <div class="nav-container">
+        <nav class="navbar">
+          <div class="nav-brand">
+            <div class="nav-logo">T</div>
+            <div class="nav-title">TD Web</div>
+          </div>
+
+          <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+          </div>
+
+          <ul class="nav-links" id="navLinks">
+            <li class="nav-link active"><a href="#home">Trang chủ</a></li>
+            <li class="nav-link"><a href="#features">Dịch vụ</a></li>
+            <li class="nav-link"><a href="#testimonials">Đánh giá</a></li>
+            <li class="nav-link"><a href="#contact">Liên hệ</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <div class="theme-toggle" id="themeToggle">
+              <i class="fas fa-moon"></i>
+            </div>
+
+            <div class="user-info">
+              <div class="user-avatar" id="userAvatar">A</div>
+              <div class="user-name" id="userName">admin</div>
+              <button class="logout" id="logoutBtn">Đăng xuất</button>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+      </div>
+
+      <section class="banner section" id="home">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+          <h1
+            class="banner-title"
+            style="
+              font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+                'Helvetica Neue', sans-serif;
+              font-weight: 900;
+            "
+          >
+            Chào mừng đến với TD Web
+          </h1>
+          <p class="banner-subtitle">
+            
+          </p>
+          <a href="#features" class="banner-button">Khám phá ngay</a>
+        </div>
+      </section>
+
+      <div class="main-content">
+        <section id="features" class="section">
+          <div class="section-title">
+            <h2>Dịch vụ của chúng tôi</h2>
+          </div>
+
+          <div class="features">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="feature-title">Chúc Mừng Sinh Nhật</h3>
+              <p class="feature-desc">
+                Tạo trang web chúc mừng sinh nhật tự động.
+              </p>
+              <a href="taocodesinhnhat/index.html" class="feature-link">
+                Tạo Code <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="feature-title">Chat</h3>
+              <p class="feature-desc">
+                Hệ thống trò chuyện thiết kế bởi nthdat.
+              </p>
+              <a href="https://chat-zkjh.onrender.com/chat.html" class="feature-link">
+                Chat ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-gamepad"></i>
+              </div>
+              <h3 class="feature-title">Game Zones</h3>
+              <p class="feature-desc">
+                Khám phá thế giới trò chơi hấp dẫn và thú vị.
+              </p>
+              <a href="games.html" class="feature-link">
+                Chơi ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <h3 class="feature-title">Pomodoro</h3>
+              <p class="feature-desc">
+                Tối ưu năng suất với phương pháp Pomodoro.
+              </p>
+              <a href="pomodoro.html" class="feature-link">
+                Truy cập ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-camera"></i>
+              </div>
+              <h3 class="feature-title">Camera</h3>
+              <p class="feature-desc">
+                Truy cập những chiếc camera bảo mật kém ở khắp nơi trên thế giới.
+              </p>
+              <a href="cam.html" class="feature-link">
+                Xem ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-book"></i>
+              </div>
+              <h3 class="feature-title">Study</h3>
+              <p class="feature-desc">
+                Khám phá kho tài nguyên học tập chất lượng.
+              </p>
+              <a href="usefulwebsite.html" class="feature-link">
+                Khám phá ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-music"></i>
+              </div>
+              <h3 class="feature-title">Songs</h3>
+              <p class="feature-desc">
+                Thư giãn với bộ sưu tập nhạc tuyển chọn.
+              </p>
+              <a href="song.html" class="feature-link">
+                Chill thôi nào <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-file"></i>
+              </div>
+              <h3 class="feature-title">Tham khảo</h3>
+              <p class="feature-desc">Tài liệu tham khảo dành cho Developer.</p>
+              <a href="thamkhao.html" class="feature-link">
+                Xem ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-globe"></i>
+              </div>
+              <h3 class="feature-title">Sự kiện quan trọng</h3>
+              <p class="feature-desc">
+                Dựa trên sự kiện lịch sử và mục đích cá nhân.
+              </p>
+              <a href="sukienquantrong.html" class="feature-link">
+                Xem ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </div>
+              <h3 class="feature-title">Giao diện</h3>
+              <p class="feature-desc">Chuyển sang giao diện cũ.</p>
+              <a href="index0.html" class="feature-link">
+                Truy cập ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+              </div>
+              <h3 class="feature-title">Kho ảnh (demo)</h3>
+              <p class="feature-desc">Khám phá kho ảnh độc lạ.</p>
+              <a href="kho-anh-demo/index.html" class="feature-link">
+                Khám phá ngay <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section">
+          <div class="section-title">
+            <h2>Khách hàng nói gì về chúng tôi</h2>
+          </div>
+
+          <div class="testimonials-container">
+            <div class="testimonial-card">
+              <div class="testimonial-text">O_o</div>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">N</div>
+                <div class="testimonial-info">
+                  <h4>admin</h4>
+                  <p>TD Web</p>
+                </div>
+              </div>
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="footer section" id="contact">
+        <div class="footer-container">
+          <div class="footer-about">
+            <div class="footer-logo">
+              <div class="footer-icon">T</div>
+              <div class="footer-title">TD Web</div>
+            </div>
+            <p>
+              TD Web cung cấp giải pháp quản lý toàn diện giúp doanh nghiệp
+              của bạn vận hành hiệu quả hơn. Với công nghệ tiên tiến và giao
+              diện thân thiện, chúng tôi cam kết mang lại trải nghiệm tốt nhất
+              cho khách hàng.
+            </p>
+            <div class="footer-social">
+              <a href="#" class="social-icon"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="social-icon"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-links">
+            <h3>Liên kết nhanh</h3>
+            <ul>
+              <li>
+                <a href="#home"
+                  ><i class="fas fa-chevron-right"></i> Trang chủ</a
+                >
+              </li>
+              <li>
+                <a href="#features"
+                  ><i class="fas fa-chevron-right"></i> Dịch vụ</a
+                >
+              </li>
+              <li>
+                <a href="#testimonials"
+                  ><i class="fas fa-chevron-right"></i> Đánh giá</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-contact">
+            <h3>Liên hệ với chúng tôi</h3>
+            <p><i class="fas fa-envelope"></i> tle244215@gmail.com</p>
+            <p><i class="fas fa-globe"></i> https://tdweb-seven.vercel.app</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 TDW. Tất cả các quyền được bảo lưu. | Thiết kế bởi
+            <a
+              href="#"
+              onclick="lienHe()"
+              style="color: var(--primary); text-decoration: none"
+              >#nthdat</a
+            >
+          </p>
+        </div>
+      </footer>
+
+      <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const accounts = [
+          {
+            username: "tdat",
+            password: "aguaguagu",
+            type: "Administrator",
+            avatar: "A",
+          },
+          {
+            username: "user",
+            password: "user",
+            type: "Administrator",
+            avatar: "U",
+          },
+        ];
+
+        checkPreviousLogin();
+
+        createParticles();
+
+        createCosmicRays();
+
+        initTiltEffect();
+
+        const loginForm = document.getElementById("loginForm");
+        loginForm.addEventListener("submit", handleLogin);
+
+        const togglePassword = document.getElementById("togglePassword");
+        togglePassword.addEventListener("click", function () {
+          const passwordInput = document.getElementById("password");
+
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            this.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    `;
+          } else {
+            passwordInput.type = "password";
+            this.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    `;
+          }
+        });
+
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", function () {
+          if (document.getElementById("remember").checked) {
+            showLoginPage(false);
+          } else {
+            localStorage.removeItem("loggedInUser");
+            showLoginPage(true);
+          }
+        });
+
+        setFixedLabels();
+
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle.addEventListener("click", toggleTheme);
+
+        window.addEventListener("scroll", toggleBackToTopButton);
+
+        const backToTop = document.getElementById("backToTop");
+        backToTop.addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+
+        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        mobileMenuToggle.addEventListener("click", function () {
+          navLinks.classList.toggle("show");
+          this.innerHTML = navLinks.classList.contains("show")
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+        });
+
+        const menuLinks = document.querySelectorAll(".nav-link a");
+        menuLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            if (navLinks.classList.contains("show")) {
+              navLinks.classList.remove("show");
+              mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        const scrollProgress = document.getElementById("scrollProgress");
+        window.addEventListener("scroll", updateScrollProgress);
+
+        function checkPreviousLogin() {
+          const loggedInUser = localStorage.getItem("loggedInUser");
+
+          if (loggedInUser) {
+            const user = JSON.parse(loggedInUser);
+            document.getElementById("userName").textContent = user.username;
+            document.getElementById("userAvatar").textContent = user.avatar;
+            showHomePage();
+          }
+        }
+
+        function createParticles() {
+          const particleContainer = document.getElementById("particles");
+          const colors = [
+            "#6A11CB",
+            "#2575FC",
+            "#FF416C",
+            "#00F5A0",
+            "#FFF176",
+          ];
+
+          for (let i = 0; i < 50; i++) {
+            const particle = document.createElement("div");
+            particle.className = "particle";
+            particle.style.width = Math.random() * 6 + 2 + "px";
+            particle.style.height = particle.style.width;
+            particle.style.background =
+              colors[Math.floor(Math.random() * colors.length)];
+            particle.style.left = Math.random() * 100 + "vw";
+            particle.style.top = Math.random() * 100 + "vh";
+            particle.style.opacity = Math.random() * 0.5 + 0.3;
+            particleContainer.appendChild(particle);
+
+            particle.animate(
+              [
+                {
+                  transform: `translate(${Math.random() * 100 - 50}px, ${
+                    Math.random() * 100 - 50
+                  }px)`,
+                },
+                {
+                  transform: `translate(${Math.random() * 100 - 50}px, ${
+                    Math.random() * 100 - 50
+                  }px)`,
+                },
+                {
+                  transform: `translate(${Math.random() * 100 - 50}px, ${
+                    Math.random() * 100 - 50
+                  }px)`,
+                },
+              ],
+              {
+                duration: Math.random() * 10000 + 20000,
+                iterations: Infinity,
+                direction: "alternate",
+                easing: "ease-in-out",
+              }
+            );
+          }
+        }
+
+        function createCosmicRays() {
+          const cosmicRaysContainer = document.getElementById("cosmicRays");
+          for (let i = 0; i < 15; i++) {
+            const ray = document.createElement("div");
+            ray.className = "cosmic-ray";
+            ray.style.top = `${Math.random() * 100}%`;
+            ray.style.left = `${Math.random() * 100}%`;
+            ray.style.width = `${Math.random() * 200 + 80}px`;
+            ray.style.animationDelay = `${Math.random() * 15}s`;
+            ray.style.opacity = Math.random() * 0.5 + 0.1;
+            ray.style.transform = `rotate(${Math.random() * 180}deg)`;
+            cosmicRaysContainer.appendChild(ray);
+          }
+        }
+
+        function initTiltEffect() {
+          const loginContainer = document.getElementById("loginContainer");
+          document.addEventListener("mousemove", function (e) {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            loginContainer.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+          });
+
+          document.addEventListener("mouseleave", function () {
+            loginContainer.style.transform = "rotateY(0deg) rotateX(0deg)";
+          });
+        }
+
+        function handleLogin(e) {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const rememberLogin = document.getElementById("remember").checked;
+
+          const user = accounts.find(
+            (acc) => acc.username === username && acc.password === password
+          );
+
+          if (user) {
+            const loginButton = document.getElementById("loginButton");
+            const ripple = document.createElement("span");
+            ripple.className = "ripple";
+            loginButton.appendChild(ripple);
+
+            const buttonRect = loginButton.getBoundingClientRect();
+            const rippleSize = Math.max(buttonRect.width, buttonRect.height);
+
+            ripple.style.width = ripple.style.height = `${rippleSize}px`;
+            ripple.style.left = `${buttonRect.width / 2 - rippleSize / 2}px`;
+            ripple.style.top = `${buttonRect.height / 2 - rippleSize / 2}px`;
+
+            setTimeout(() => {
+              ripple.remove();
+            }, 600);
+
+            loginButton.classList.add("loading");
+            loginButton.textContent = "";
+            loginButton.disabled = true;
+
+            if (rememberLogin) {
+              localStorage.setItem("loggedInUser", JSON.stringify(user));
+            }
+
+            setTimeout(() => {
+              loginButton.classList.remove("loading");
+              loginButton.classList.remove("glow-effect");
+              loginButton.style.background =
+                "linear-gradient(45deg, #00c853, #00e676)";
+              loginButton.textContent = "Đăng Nhập Thành Công!";
+
+              document.getElementById("userName").textContent = user.username;
+              document.getElementById("userAvatar").textContent = user.avatar;
+
+              setTimeout(() => {
+                showHomePage();
+
+                setTimeout(() => {
+                  loginButton.style.background =
+                    "linear-gradient(45deg, var(--primary-color), var(--secondary-color))";
+                  loginButton.textContent = "Đăng Nhập";
+                  loginButton.disabled = false;
+                  loginButton.classList.add("glow-effect");
+                }, 1000);
+              }, 1000);
+            }, 2000);
+          } else {
+            const loginButton = document.getElementById("loginButton");
+            loginButton.style.background =
+              "linear-gradient(45deg, #f44336, #d32f2f)";
+            loginButton.textContent = "Đăng Nhập Thất Bại!";
+            loginButton.classList.remove("glow-effect");
+
+            loginButton.animate(
+              [
+                { transform: "translateX(-5px)" },
+                { transform: "translateX(5px)" },
+                { transform: "translateX(-5px)" },
+                { transform: "translateX(5px)" },
+                { transform: "translateX(0)" },
+              ],
+              {
+                duration: 400,
+                easing: "ease-in-out",
+              }
+            );
+
+            setTimeout(() => {
+              loginButton.style.background =
+                "linear-gradient(45deg, var(--primary-color), var(--secondary-color))";
+              loginButton.textContent = "Đăng Nhập";
+              loginButton.classList.add("glow-effect");
+            }, 3000);
+          }
+        }
+
+        function showHomePage() {
+          const loginContainer = document.getElementById("loginContainer");
+          const homepage = document.getElementById("homepage");
+
+          loginContainer.style.animation = "fadeOut 0.5s forwards";
+          setTimeout(() => {
+            loginContainer.style.display = "none";
+            homepage.style.display = "block";
+            homepage.style.animation = "fadeIn 0.5s forwards";
+
+            const style = document.createElement("style");
+            style.textContent = `
+                        @keyframes fadeOut {
+                            from { opacity: 1; transform: translateY(0); }
+                            to { opacity: 0; transform: translateY(-20px); }
+                        }
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(20px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                    `;
+            document.head.appendChild(style);
+
+            updateActiveMenuState();
+
+            const featureCards = document.querySelectorAll(".feature-card");
+            featureCards.forEach((card) => {
+              card.style.display = "block";
+            });
+
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (loggedInUser && loggedInUser.type === "User") {
+              featureCards.forEach((card) => {
+                const title = card.querySelector(".feature-title").textContent.trim();
+                if (title !== "Chat" && title !== "Songs") {
+                  card.style.display = "none";
+                }
+              });
+            }
+          }, 500);
+        }
+
+        function showLoginPage(resetForm) {
+          const loginContainer = document.getElementById("loginContainer");
+          const homepage = document.getElementById("homepage");
+
+          homepage.style.animation = "fadeOut 0.5s forwards";
+          setTimeout(() => {
+            homepage.style.display = "none";
+            loginContainer.style.display = "block";
+            loginContainer.style.animation = "fadeIn 0.5s forwards";
+
+            if (resetForm) {
+              document.getElementById("loginForm").reset();
+
+              if (!document.getElementById("username").value) {
+                document.querySelector('label[for="username"]').style = "";
+              }
+
+              if (!document.getElementById("password").value) {
+                document.querySelector('label[for="password"]').style = "";
+              }
+            }
+          }, 500);
+        }
+
+        function setFixedLabels() {
+          const inputs = document.querySelectorAll(
+            'input[type="text"], input[type="password"]'
+          );
+          inputs.forEach((input) => {
+            if (input.value !== "") {
+              const label = document.querySelector(`label[for="${input.id}"]`);
+              label.style.top = "-10px";
+              label.style.left = "15px";
+              label.style.fontSize = "12px";
+              label.style.background = "rgba(0, 0, 0, 0.5)";
+              label.style.padding = "0 5px";
+            }
+
+            input.addEventListener("input", function () {
+              const label = document.querySelector(`label[for="${this.id}"]`);
+              if (this.value !== "") {
+                label.style.top = "-10px";
+                label.style.left = "15px";
+                label.style.fontSize = "12px";
+                label.style.background = "rgba(0, 0, 0, 0.5)";
+                label.style.padding = "0 5px";
+              } else {
+                label.style = "";
+              }
+            });
+          });
+        }
+
+        function toggleTheme() {
+          const htmlElement = document.documentElement;
+          const currentTheme = htmlElement.getAttribute("data-theme");
+          const themeToggleIcon = document.querySelector("#themeToggle i");
+
+          if (currentTheme === "dark") {
+            htmlElement.setAttribute("data-theme", "light");
+            themeToggleIcon.classList.remove("fa-sun");
+            themeToggleIcon.classList.add("fa-moon");
+            localStorage.setItem("theme", "light");
+          } else {
+            htmlElement.setAttribute("data-theme", "dark");
+            themeToggleIcon.classList.remove("fa-moon");
+            themeToggleIcon.classList.add("fa-sun");
+            localStorage.setItem("theme", "dark");
+          }
+        }
+
+        function initTheme() {
+          const savedTheme = localStorage.getItem("theme") || "dark";
+          const themeToggleIcon = document.querySelector("#themeToggle i");
+
+          document.documentElement.setAttribute("data-theme", savedTheme);
+
+          if (savedTheme === "light") {
+            themeToggleIcon.classList.remove("fa-sun");
+            themeToggleIcon.classList.add("fa-moon");
+          } else {
+            themeToggleIcon.classList.remove("fa-moon");
+            themeToggleIcon.classList.add("fa-sun");
+          }
+        }
+
+        function toggleBackToTopButton() {
+          const backToTopBtn = document.getElementById("backToTop");
+
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add("show");
+          } else {
+            backToTopBtn.classList.remove("show");
+          }
+
+          updateActiveMenuState();
+        }
+
+        function updateScrollProgress() {
+          const scrollProgress = document.getElementById("scrollProgress");
+          const scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+          const scrollHeight =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+          const scrollPercentage = (scrollTop / scrollHeight) * 100;
+
+          scrollProgress.style.width = scrollPercentage + "%";
+        }
+
+        function updateActiveMenuState() {
+          const sections = document.querySelectorAll(".section");
+          const navLinks = document.querySelectorAll(".nav-link");
+
+          let currentSection = "";
+          const scrollPosition = window.scrollY + 100; 
+
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop - 100; 
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute("id");
+
+            if (
+              scrollPosition >= sectionTop &&
+              scrollPosition < sectionTop + sectionHeight
+            ) {
+              currentSection = sectionId;
+            }
+          });
+
+          navLinks.forEach((navLink) => {
+            const href = navLink
+              .querySelector("a")
+              .getAttribute("href")
+              .substring(1);
+            navLink.classList.remove("active");
+
+            if (href === currentSection) {
+              navLink.classList.add("active");
+            }
+          });
+
+          if (window.scrollY < 100) {
+            navLinks.forEach((navLink) => {
+              const href = navLink.querySelector("a").getAttribute("href");
+
+              if (href === "#home") {
+                navLink.classList.add("active");
+              } else {
+                navLink.classList.remove("active");
+              }
+            });
+          }
+        }
+
+        initTheme();
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const cursor = document.createElement("div");
+        cursor.className = "cursor";
+        document.body.appendChild(cursor);
+
+        let lastSparkleTime = 0;
+
+        document.addEventListener("mousemove", function (e) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+
+          const currentTime = Date.now();
+          if (currentTime - lastSparkleTime > 50) {
+            createSparkle(e.clientX, e.clientY);
+            lastSparkleTime = currentTime;
+          }
+        });
+
+        function createSparkle(x, y) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+
+          const offsetX = Math.random() * 40 - 20;
+          const offsetY = Math.random() * 40 - 20;
+
+          sparkle.style.left = x + offsetX + "px";
+          sparkle.style.top = y + offsetY + "px";
+
+          const hue = Math.floor(Math.random() * 60) + 30;  
+          sparkle.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+          sparkle.style.boxShadow = `0 0 10px 2px hsl(${hue}, 100%, 70%), 
+                                0 0 20px 5px hsl(${hue}, 100%, 50%), 
+                                0 0 30px 7px hsl(${hue}, 80%, 40%)`;
+
+          const size = Math.random() * 8 + 3;
+          sparkle.style.width = size + "px";
+          sparkle.style.height = size + "px";
+
+          document.body.appendChild(sparkle);
+
+          setTimeout(() => {
+            document.body.removeChild(sparkle);
+          }, 1000);
+        }
+      });
+    </script>
+  </body>
+</html>
