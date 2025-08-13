@@ -35,3 +35,7 @@ app.use(express.static("public"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server chạy trên cổng ${PORT}`));
+
+app.use((req, res) => {
+    res.status(404).sendFile(__dirname + '/public/404.html');
+  });
