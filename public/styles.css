@@ -58,6 +58,7 @@
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
   --bg-glass: rgba(0, 0, 0, 0.2);
+  --bg-glass-2: rgba(0, 0, 0, 1);
 
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
@@ -1396,11 +1397,11 @@ body {
 
 .nav-menu {
   position: fixed;
-  bottom: 0;
+  bottom: -93vh;
   left: 0;
   right: 0;
   width: 100%;
-  background: var(--bg-glass);
+  background: var(--bg-glass-2);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--border-color);
   display: flex;
