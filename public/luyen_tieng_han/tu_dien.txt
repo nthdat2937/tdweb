@@ -1,0 +1,102 @@
+이것
+this
+cai nay
+그것
+that
+cai do
+저것
+that
+cai kia
+무엇
+what
+cai gi
+책
+book
+quyen sach
+공책
+notebook
+quyen vo
+한국어
+korean
+tieng han
+의자
+chair
+cai ghe
+책상
+desk
+cai ban
+볼핀
+pen
+but bi
+연필
+pencil
+but chi
+필통
+pencil case
+hop but
+양말
+sock
+vo
+구두
+shoe
+giay
+운동화
+sport shoe
+giay the thao
+안경
+glass surface
+mat kinh
+가방
+bag
+cap
+창문
+window
+cua so
+문
+door
+cua
+에어컨
+air-conditioner
+may lanh
+선풍기
+fan
+quat may
+시계
+clock
+dong ho
+컴퓨터
+computer
+may tinh
+노트북
+laptop
+laptop
+휴대폰
+phone
+dien thoai
+신문
+news
+bao
+사전
+dictionary
+tu dien
+칠판
+board
+cai bang
+나무
+tree
+cay coi
+꽃
+flower
+hoa
+네
+yes
+vang
+아니요
+no
+khong
+이다
+is
+la
+아니다
+is not
+khong phai la
