@@ -146,6 +146,13 @@
     </div>
 
     <script>
+        function removeAccents(str) {
+            return str.normalize('NFD')
+                     .replace(/[\u0300-\u036f]/g, '')
+                     .replace(/đ/g, 'd')
+                     .replace(/Đ/g, 'D');
+        }
+
         const dictionary = {
             tieng_han: [],
             tieng_viet: [],
@@ -189,8 +196,8 @@
         }
 
         function checkAnswer() {
-            const userAnswer = document.getElementById('answer').value.trim();
-            const correctAnswer = dictionary.tieng_viet[currentIndex];
+            const userAnswer = removeAccents(document.getElementById('answer').value.trim().toLowerCase());
+            const correctAnswer = removeAccents(dictionary.tieng_viet[currentIndex].toLowerCase());
             const result = document.getElementById('result');
 
             if (userAnswer === correctAnswer) {
@@ -199,7 +206,7 @@
                 dung++;
                 setTimeout(getRandomWord, 500);
             } else {
-                result.textContent = `Sai! Đáp án chính xác: ${correctAnswer}`;
+                result.textContent = `Sai! Đáp án chính xác: ${dictionary.tieng_viet[currentIndex]}`;
                 result.className = 'result wrong';
                 sai++;
                 setTimeout(getRandomWord, 1000);
