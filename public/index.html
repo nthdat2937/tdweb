@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>TD Web</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -11,6 +11,67 @@
     <meta property="og:title" content="TD Web" />
     <meta property="og:description" content="Trang web tự thiết kế bới nthdat" />
     <meta property="og:image" content="image/chrome-capture-2025-8-5.png" />
+    <style>
+        /* Add this CSS inside existing style tag or create new one in head */
+        @media screen and (max-width: 768px) {
+            .header-content {
+                padding: 0 15px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                justify-content: space-around;
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            .nav-item {
+                flex: 1;
+                text-align: center;
+                padding: 8px 0;
+            }
+
+            .nav-item span {
+                font-size: 12px;
+                display: block;
+                margin-top: 4px;
+            }
+
+            .nav-item i {
+                font-size: 20px;
+            }
+
+            .nav-indicator {
+                bottom: 0;
+                height: 3px;
+                top: auto;
+                transition: transform 0.3s ease;
+            }
+
+            .main-content {
+                padding-bottom: 70px; /* Add space for fixed bottom nav */
+            }
+        }
+
+        /* Fix for iPhone notch */
+        @supports (padding: max(0px)) {
+            .nav-menu {
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+            }
+            
+            .main-content {
+                padding-bottom: max(70px, calc(70px + env(safe-area-inset-bottom)));
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="cursor-trail"></div>
