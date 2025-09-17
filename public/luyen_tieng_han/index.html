@@ -60,9 +60,38 @@
             margin-bottom: 30px;
         }
         .score span {
-            padding: 5px 15px;
+            padding: 15px 25px;
             border-radius: 20px;
             background: #f8f9fa;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .score span:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .score-change {
+            position: absolute;
+            animation: floatUp 0.8s ease-out forwards;
+            font-weight: bold;
+            pointer-events: none;
+        }
+        .score-plus {
+            color: var(--success);
+        }
+        .score-minus {
+            color: var(--error);
+        }
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
         }
         .word {
             font-size: 3em;
@@ -123,12 +152,79 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .language-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .language-selection {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .language-selection h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .language-options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .language-option {
+            padding: 15px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-option:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+        }
+        .mode-switch {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .mode-switch button {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .mode-switch button:hover {
+            background: var(--primary);
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <div id="languageModal" class="language-modal">
+        <div class="language-selection">
+            <h2>Chọn ngôn ngữ / Select language</h2>
+            <div class="language-options">
+                <button onclick="selectLanguage('viet')" class="language-option">Tiếng Việt</button>
+                <button onclick="selectLanguage('eng')" class="language-option">English</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <div class="title">Luyện Tiếng Hàn</div>
+            <div class="mode-switch">
+                <button onclick="toggleMode()" id="modeButton">Chuyển sang chế độ viết tiếng Hàn</button>
+            </div>
             <div class="progress">
                 <div class="progress-bar" id="progress"></div>
             </div>
@@ -139,7 +235,7 @@
         </div>
         <div class="word" id="word"></div>
         <div class="input-group">
-            <input type="text" id="answer" placeholder="Nhập nghĩa tiếng Việt...">
+            <input type="text" id="answer" placeholder="Nhập nghĩa...">
             <button onclick="checkAnswer()">Kiểm tra</button>
         </div>
         <div id="result" class="result"></div>
@@ -187,40 +283,156 @@
         let dung = 0;
         let sai = 0;
         let currentIndex;
+        let currentLanguage = 'viet';
+        let isKoreanMode = false;
+
+        const translations = {
+            viet: {
+                title: "Luyện Tiếng Hàn",
+                correct: "Đúng:",
+                wrong: "Sai:",
+                placeholder: "Nhập nghĩa tiếng Việt...",
+                checkButton: "Kiểm tra",
+                correctAnswer: "Chính xác!",
+                wrongAnswer: "Sai! Đáp án chính xác:",
+                completed: "Hoàn thành chương trình luyện tiếng Hàn!\nĐiểm số",
+                modeButton: "Chuyển sang chế độ viết tiếng Hàn",
+                modeButtonAlt: "Chuyển sang chế độ dịch nghĩa",
+                koreanPlaceholder: "Nhập tiếng Hàn..."
+            },
+            eng: {
+                title: "Korean Practice",
+                correct: "Correct:",
+                wrong: "Wrong:",
+                placeholder: "Enter English meaning...",
+                checkButton: "Check",
+                correctAnswer: "Correct!",
+                wrongAnswer: "Wrong! Correct answer:",
+                completed: "Korean practice completed!\nScore",
+                modeButton: "Switch to Korean writing mode",
+                modeButtonAlt: "Switch to translation mode",
+                koreanPlaceholder: "Enter Korean..."
+            }
+        };
+
+        function selectLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('languageModal').style.display = 'none';
+            updateUILanguage(lang);
+        }
+
+        function updateUILanguage(lang) {
+            const t = translations[lang];
+            document.querySelector('.title').textContent = t.title;
+            document.querySelector('.score span:first-child').innerHTML = `${t.correct} <b id="dung">0</b>`;
+            document.querySelector('.score span:last-child').innerHTML = `${t.wrong} <b id="sai">0</b>`;
+            document.getElementById('answer').placeholder = t.placeholder;
+            document.querySelector('.input-group button').textContent = t.checkButton;
+            document.getElementById('modeButton').textContent = isKoreanMode ? t.modeButtonAlt : t.modeButton;
+        }
+
+        function toggleMode() {
+            isKoreanMode = !isKoreanMode;
+            const t = translations[currentLanguage];
+            const modeButton = document.getElementById('modeButton');
+            const answer = document.getElementById('answer');
+            
+            if (isKoreanMode) {
+                modeButton.textContent = t.modeButtonAlt;
+                answer.placeholder = t.koreanPlaceholder;
+            } else {
+                modeButton.textContent = t.modeButton;
+                answer.placeholder = t.placeholder;
+            }
+            
+            getRandomWord();
+        }
 
         function getRandomWord() {
             currentIndex = Math.floor(Math.random() * dictionary.tieng_han.length);
-            document.getElementById('word').textContent = dictionary.tieng_han[currentIndex];
+            const word = document.getElementById('word');
+            if (isKoreanMode) {
+                const meanings = currentLanguage === 'viet' 
+                    ? dictionary.tieng_viet[currentIndex]
+                    : dictionary.tieng_anh[currentIndex];
+                // Show all meanings separated by slash
+                word.textContent = meanings.split('/').map(m => m.trim()).join(' / ');
+            } else {
+                // For Korean words, show all variations
+                word.textContent = dictionary.tieng_han[currentIndex].split('/').map(k => k.trim()).join(' / ');
+            }
             document.getElementById('answer').value = '';
             document.getElementById('result').textContent = '';
         }
 
+        function updateScore(isCorrect) {
+            const scoreElement = document.getElementById(isCorrect ? 'dung' : 'sai');
+            const scoreContainer = scoreElement.parentElement;
+            const scoreChange = document.createElement('span');
+            
+            scoreChange.textContent = isCorrect ? '+1' : '-1';
+            scoreChange.className = `score-change ${isCorrect ? 'score-plus' : 'score-minus'}`;
+            
+            // Position the floating number
+            scoreChange.style.left = `${Math.random() * 40 + 30}%`;
+            scoreChange.style.top = '50%';
+            
+            scoreContainer.appendChild(scoreChange);
+            
+            // Update the actual score
+            scoreElement.textContent = isCorrect ? ++dung : ++sai;
+            
+            // Remove the floating number after animation
+            setTimeout(() => scoreChange.remove(), 800);
+
+            // Highlight effect on score container
+            scoreContainer.style.transform = 'scale(1.1)';
+            setTimeout(() => scoreContainer.style.transform = '', 200);
+        }
+
         function checkAnswer() {
             const userAnswer = removeAccents(document.getElementById('answer').value.trim().toLowerCase());
-            const correctAnswer = removeAccents(dictionary.tieng_viet[currentIndex].toLowerCase());
-            const result = document.getElementById('result');
-
-            if (userAnswer === correctAnswer) {
-                result.textContent = "Chính xác!";
-                result.className = 'result correct';
-                dung++;
-                setTimeout(getRandomWord, 500);
+            let correctAnswers;
+            let displayAnswers;
+            
+            if (isKoreanMode) {
+                // Korean mode - check against all Korean variations
+                correctAnswers = dictionary.tieng_han[currentIndex].split('/').map(k => 
+                    removeAccents(k.trim().toLowerCase())
+                );
+                displayAnswers = dictionary.tieng_han[currentIndex].split('/').map(k => k.trim());
             } else {
-                result.textContent = `Sai! Đáp án chính xác: ${dictionary.tieng_viet[currentIndex]}`;
-                result.className = 'result wrong';
-                sai++;
-                setTimeout(getRandomWord, 1000);
+                // Translation mode - check against all meaning variations
+                const answers = currentLanguage === 'viet' 
+                    ? dictionary.tieng_viet[currentIndex].split('/')
+                    : dictionary.tieng_anh[currentIndex].split('/');
+                
+                correctAnswers = answers.map(a => removeAccents(a.trim().toLowerCase()));
+                displayAnswers = answers.map(a => a.trim());
             }
 
-            document.getElementById('dung').textContent = dung;
-            document.getElementById('sai').textContent = sai;
+            const result = document.getElementById('result');
+            const t = translations[currentLanguage];
+
+            if (correctAnswers.includes(userAnswer)) {
+                result.textContent = t.correctAnswer;
+                result.className = 'result correct';
+                updateScore(true);
+                setTimeout(getRandomWord, 500);
+            } else {
+                const allAnswers = displayAnswers.join(' / ');
+                result.textContent = `${t.wrongAnswer} ${allAnswers}`;
+                result.className = 'result wrong';
+                updateScore(false);
+                setTimeout(getRandomWord, 1000);
+            }
 
             // Update progress bar
             const progress = ((dung + sai) / 100) * 100;
             document.getElementById('progress').style.width = `${progress}%`;
 
             if (dung + sai >= 100) {
-                alert(`Hoàn thành chương trình luyện tiếng Hàn!\nĐiểm số ${dung}/${dung+sai}`);
+                alert(`${t.completed} ${dung}/${dung+sai}`);
                 location.reload();
             }
         }
