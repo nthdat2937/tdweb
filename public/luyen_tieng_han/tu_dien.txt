@@ -259,3 +259,93 @@ nói
 듣다
 listening
 nghe
+어디
+where
+ở đâu
+여디
+here
+ở đây
+거기
+there
+ở đó
+저기
+over there
+ở kia
+시장
+market
+chợ
+학교
+school
+trường học
+기숙사
+university
+trường đại học
+회사
+company
+công ty
+유학원
+study abroad center
+trung tâm du học
+도서관
+library
+thư viện
+서정
+bookstore
+nhà sách
+영사관
+consulate
+lanh sự quán
+부엌
+kitchen
+phòng bếp
+화장실
+toilet
+nhà vệ sinh
+극장
+theater
+rạp phim/nhà hát
+집
+house
+nhà
+방
+room
+phòng
+정문
+main door
+cửa chính
+신당
+restaurant
+nhà hàng/quán ăn
+사무실
+office
+văn phòng
+병원
+hospital
+bệnh viện
+가다
+go
+đi
+오다
+arrive
+đến
+유학하다
+study abroad
+du học
+유학가다
+study abroad
+du học
+여행하다
+travel
+du lịch
+여행가다
+travel
+du lịch
+가르치다
+teach
+dạy/chỉ
+이야기다
+chat
+trò chuyện
+만나다
+meet
+gặp gỡ
