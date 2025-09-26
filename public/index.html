@@ -97,408 +97,405 @@
     </style>
 </head>
 <body>
-    <div id="auth-status"></div>
-    <div id="content" style="display: none;">
-        <div class="cursor-trail"></div>
-        <div class="particle-container"></div>
-        
-        <div class="loading-screen" id="loadingScreen">
-            <div class="loading-content">
-                <div class="loading-logo">
-                    <div class="morphing-shape"></div>
-                </div>
-                <div class="loading-text">
-                    <span class="loading-letter">Đ</span>
-                    <span class="loading-letter">A</span>
-                    <span class="loading-letter">N</span>
-                    <span class="loading-letter">G</span>
-                    <span class="loading-letter"> </span>
-                    <span class="loading-letter">T</span>
-                    <span class="loading-letter">Ả</span>
-                    <span class="loading-letter">I</span>
-                    <span class="loading-letter"> </span>
-                    <span class="loading-letter">Đ</span>
-                    <span class="loading-letter">Ợ</span>
-                    <span class="loading-letter">I</span>
-                    <span class="loading-letter"> </span>
-                    <span class="loading-letter">X</span>
-                    <span class="loading-letter">Í</span>
-                    <span class="loading-letter">U</span>
-                </div>
-                <div class="loading-progress">
-                    <div class="progress-bar"></div>
-                </div>
+    <div class="cursor-trail"></div>
+    <div class="particle-container"></div>
+    
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="morphing-shape"></div>
+            </div>
+            <div class="loading-text">
+                <span class="loading-letter">Đ</span>
+                <span class="loading-letter">A</span>
+                <span class="loading-letter">N</span>
+                <span class="loading-letter">G</span>
+                <span class="loading-letter"> </span>
+                <span class="loading-letter">T</span>
+                <span class="loading-letter">Ả</span>
+                <span class="loading-letter">I</span>
+                <span class="loading-letter"> </span>
+                <span class="loading-letter">Đ</span>
+                <span class="loading-letter">Ợ</span>
+                <span class="loading-letter">I</span>
+                <span class="loading-letter"> </span>
+                <span class="loading-letter">X</span>
+                <span class="loading-letter">Í</span>
+                <span class="loading-letter">U</span>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
             </div>
         </div>
+    </div>
 
-        <div class="main-container" id="mainContainer">
-            <header class="header" id="header">
-                <div class="header-content">
-                    <div class="logo">
-                        <div class="profile-menu">
-                            <a href=""><img src="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317" alt="Profile" class="profile-avatar"></a>
-                        </div>
-                        <span class="logo-text">TD Web</span>
+    <div class="main-container" id="mainContainer">
+        <header class="header" id="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="profile-menu">
+                        <a href=""><img src="https://cdn.glitch.global/f61a2915-cde6-4e38-b016-504cda6e4656/2025_03_26_04h_Kleki-removebg-preview.png?v=1742993178317" alt="Profile" class="profile-avatar"></a>
+                    </div>
+                    <span class="logo-text">TD Web</span>
+                </div>
+                
+                <nav class="nav-menu" id="navMenu">
+                    <div class="nav-item active" data-tab="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Trang chủ</span>
+                    </div>
+                    <div class="nav-item" data-tab="tools">
+                        <i class="fas fa-tools"></i>
+                        <span>Công cụ</span>
+                    </div>
+                    <div class="nav-item" data-tab="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Cài đặt</span>
+                    </div>
+                    <div class="nav-indicator"></div>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="search-container" style="display: none;">
+                        <input type="text" class="search-input" placeholder="Tìm kiếm..." id="searchInput">
+                        <i class="fas fa-search search-icon"></i>
+                        <div class="search-suggestions" id="searchSuggestions"></div>
                     </div>
                     
-                    <nav class="nav-menu" id="navMenu">
-                        <div class="nav-item active" data-tab="dashboard">
-                            <i class="fas fa-home"></i>
-                            <span>Trang chủ</span>
-                        </div>
-                        <div class="nav-item" data-tab="tools">
-                            <i class="fas fa-tools"></i>
-                            <span>Công cụ</span>
-                        </div>
-                        <div class="nav-item" data-tab="settings">
-                            <i class="fas fa-cog"></i>
-                            <span>Cài đặt</span>
-                        </div>
-                        <div class="nav-indicator"></div>
-                    </nav>
-
-                    <div class="header-actions">
-                        <div class="search-container" style="display: none;">
-                            <input type="text" class="search-input" placeholder="Tìm kiếm..." id="searchInput">
-                            <i class="fas fa-search search-icon"></i>
-                            <div class="search-suggestions" id="searchSuggestions"></div>
-                        </div>
-                        
-                        <button class="theme-toggle" id="themeToggle">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </div>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
-            </header>
+            </div>
+        </header>
 
-            <main class="main-content">
-                <section class="tab-content active" id="dashboard">
-                    <div class="hero-section">
-                        <div class="hero-content">
-                            <h1 class="hero-title">
-                                <span class="text-reveal">Chào mừng đến với</span>
-                                <span class="text-reveal gradient-text">TD Web</span>
-                            </h1>
-                            <p class="hero-description text-reveal">
-                                Trung tâm tiện ích hiện đại với giao diện đẹp mắt và trải nghiệm người dùng tuyệt vời
-                            </p>
-                        </div>
-                        <div class="hero-visual">
-                            <div class="floating-card">
-                                <div class="card-glow"></div>
-                                <div class="card-content">
-                                    <div class="stats-grid">
-                                        <div class="stat-item">
-                                            <div class="stat-number">1</div>
-                                            <div class="stat-label">Admin</div>
-                                        </div>
-                                        <div class="stat-item">
-                                            <div class="stat-number">100%</div>
-                                            <div class="stat-label">Uptime</div>
-                                        </div>
-                                        <div class="stat-item">
-                                            <div class="stat-number">24/7</div>
-                                            <div class="stat-label">Support</div>
-                                        </div>
+        <main class="main-content">
+            <section class="tab-content active" id="dashboard">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            <span class="text-reveal">Chào mừng đến với</span>
+                            <span class="text-reveal gradient-text">TD Web</span>
+                        </h1>
+                        <p class="hero-description text-reveal">
+                            Trung tâm tiện ích hiện đại với giao diện đẹp mắt và trải nghiệm người dùng tuyệt vời
+                        </p>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="floating-card">
+                            <div class="card-glow"></div>
+                            <div class="card-content">
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <div class="stat-number">1</div>
+                                        <div class="stat-label">Admin</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-number">100%</div>
+                                        <div class="stat-label">Uptime</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-number">24/7</div>
+                                        <div class="stat-label">Support</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="features-grid">
-                        <div class="feature-card glassmorphism">
-                            <div class="feature-icon">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <h3>Hiệu suất cao</h3>
-                            <p>Tối ưu hóa tốc độ và hiệu suất cho trải nghiệm mượt mà</p>
+                <div class="features-grid">
+                    <div class="feature-card glassmorphism">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
                         </div>
-                        <div class="feature-card glassmorphism">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3>Bảo mật tuyệt đối</h3>
-                            <p>Mã hóa end-to-end và bảo vệ dữ liệu người dùng</p>
-                        </div>
-                        <div class="feature-card glassmorphism">
-                            <div class="feature-icon">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <h3>Responsive Design</h3>
-                            <p>Hoạt động hoàn hảo trên mọi thiết bị và kích thước màn hình</p>
-                        </div>
+                        <h3>Hiệu suất cao</h3>
+                        <p>Tối ưu hóa tốc độ và hiệu suất cho trải nghiệm mượt mà</p>
                     </div>
-                    <br><br>
-                </section>
-
-                <section class="tab-content" id="tools">
-                    <div class="section-header">
-                        <h2 class="section-title">Công cụ tiện ích</h2>
-                        <div class="filter-tabs">
-                            <button class="filter-btn active" data-filter="all">Tất cả</button>
-                            <button class="filter-btn" data-filter="web-create">Tạo web</button>
-                            <button class="filter-btn" data-filter="study">Học tập</button>
-                            <button class="filter-btn" data-filter="entertaiment">Giải trí</button>
+                    <div class="feature-card glassmorphism">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
+                        <h3>Bảo mật tuyệt đối</h3>
+                        <p>Mã hóa end-to-end và bảo vệ dữ liệu người dùng</p>
                     </div>
-
-                    <div class="tools-grid" id="toolsGrid">
-                        <div class="tool-card" data-category="study">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Luyện từ vựng tiếng Hàn</h3>
-                            <p class="tool-description">Bạn yếu tiếng Hàn? Đừng lo vì đã có trang web giúp bạn ôn luyện từ vựng tiếng hàn miễn phí.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="luyen_tieng_han/index.html">
-                                <button class="tool-launch-btn">
-                                    <span>Luyện tập</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
+                    <div class="feature-card glassmorphism">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
                         </div>
-                        
-                        <div class="tool-card" data-category="web-create">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Chúc mừng sinh nhật</h3>
-                            <p class="tool-description">Tạo web chúc mừng sinh nhật tự động.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="taocodesinhnhat/index.html">
-                                <button class="tool-launch-btn">
-                                    <span>Tạo web</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="entertaiment">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Game Zones</h3>
-                            <p class="tool-description">Khám phá thế giới trò chơi hấp dẫn và thú vị.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="games.html">
-                                <button class="tool-launch-btn">
-                                    <span>Chơi</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="entertaiment">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Chat</h3>
-                            <p class="tool-description">Hệ thống trò chuyện quản lý bởi nthdat.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="https://chat-zkjh.onrender.com/chat.html">
-                                <button class="tool-launch-btn">
-                                    <span>Chat</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="study">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Pomodoro</h3>
-                            <p class="tool-description">Tối ưu năng suất làm việc với phương pháp Pomodoro.</p>
-                            <div class="tool-tags">
-                                
-                                
-                            </div>
-                            <a target="_blank" href="pomodoro.html">
-                                <button class="tool-launch-btn">
-                                    <span>Sử dụng</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="entertaiment">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Camera (Hacked)</h3>
-                            <p class="tool-description">Khám phá những bí ẩn.</p>
-                            <div class="tool-tags">  
-                            </div>
-                            <a target="_blank" href="cam.html">
-                                <button class="tool-launch-btn">
-                                    <span>Truy cập</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="study">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Study</h3>
-                            <p class="tool-description">Khám phá kho tài nguyên học tập chất lượng.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="thamkhao.html">
-                                <button class="tool-launch-btn">
-                                    <span>Truy cập</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="entertaiment">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Song</h3>
-                            <p class="tool-description">Thư giãn với bộ sưu tập những bài hát tuyển chọn.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="song.html">
-                                <button class="tool-launch-btn">
-                                    <span>Khám phá</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="study">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Tài liệu</h3>
-                            <p class="tool-description">Trang web hữu ích dành cho Lập Trình Viên.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="usefulwebsite.html">
-                                <button class="tool-launch-btn">
-                                    <span>Truy cập</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        <div class="tool-card" data-category="study">
-                            <div class="tool-header">
-                                <div class="tool-icon">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                            </div>
-                            <h3 class="tool-title">Lịch sự kiện</h3>
-                            <p class="tool-description">Khám phá những sự kiện lịch sử quan trọng.</p>
-                            <div class="tool-tags">
-                            </div>
-                            <a target="_blank" href="sukienquantrong.html">
-                                <button class="tool-launch-btn">
-                                    <span>Khám phá</span>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </a>
-                        </div>
+                        <h3>Responsive Design</h3>
+                        <p>Hoạt động hoàn hảo trên mọi thiết bị và kích thước màn hình</p>
                     </div>
-                    <br><br>
-                </section>
+                </div>
+                <br><br>
+            </section>
 
+            <section class="tab-content" id="tools">
+                <div class="section-header">
+                    <h2 class="section-title">Công cụ tiện ích</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" data-filter="all">Tất cả</button>
+                        <button class="filter-btn" data-filter="web-create">Tạo web</button>
+                        <button class="filter-btn" data-filter="study">Học tập</button>
+                        <button class="filter-btn" data-filter="entertaiment">Giải trí</button>
+                    </div>
+                </div>
 
-                <section class="tab-content" id="settings">
-                    <div class="section-header">
-                        <h2 class="section-title">Cài đặt</h2>
+                <div class="tools-grid" id="toolsGrid">
+                    <div class="tool-card" data-category="study">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Luyện từ vựng tiếng Hàn</h3>
+                        <p class="tool-description">Bạn yếu tiếng Hàn? Đừng lo vì đã có trang web giúp bạn ôn luyện từ vựng tiếng hàn miễn phí.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="luyen_tieng_han/index.html">
+                            <button class="tool-launch-btn">
+                                <span>Luyện tập</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+                    
+                    <div class="tool-card" data-category="web-create">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Chúc mừng sinh nhật</h3>
+                        <p class="tool-description">Tạo web chúc mừng sinh nhật tự động.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="taocodesinhnhat/index.html">
+                            <button class="tool-launch-btn">
+                                <span>Tạo web</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
                     </div>
 
-                    <div class="settings-grid">
-                        <div class="settings-section">
-                            <h3>Giao diện</h3>
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <label>Chế độ tối</label>
-                                    <span>Tự động chuyển đổi theo thời gian</span>
-                                </div>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="darkModeToggle">
-                                    <label for="darkModeToggle" class="toggle-label"></label>
-                                </div>
-                            </div>
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <label>Hiệu ứng động</label>
-                                    <span>Bật/tắt animations và transitions</span>
-                                </div>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="animationsToggle" checked>
-                                    <label for="animationsToggle" class="toggle-label"></label>
-                                </div>
-                            </div>
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <label>Particle Effects</label>
-                                    <span>Hiệu ứng hạt nền</span>
-                                </div>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="particlesToggle" checked>
-                                    <label for="particlesToggle" class="toggle-label"></label>
-                                </div>
+                    <div class="tool-card" data-category="entertaiment">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
                             </div>
                         </div>
+                        <h3 class="tool-title">Game Zones</h3>
+                        <p class="tool-description">Khám phá thế giới trò chơi hấp dẫn và thú vị.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="games.html">
+                            <button class="tool-launch-btn">
+                                <span>Chơi</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
 
-                        <div class="settings-section">
-                            <h3>Hiệu suất</h3>
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <label>Chất lượng hiệu ứng</label>
-                                    <span>Điều chỉnh chất lượng animations</span>
-                                </div>
-                                <select class="setting-select">
-                                    <option value="low">Thấp</option>
-                                    <option value="medium">Trung bình</option>
-                                    <option value="high" selected>Cao</option>
-                                    <option value="ultra">Siêu cao</option>
-                                </select>
+                    <div class="tool-card" data-category="entertaiment">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
                             </div>
-                            <div class="setting-item">
-                                <div class="setting-info">
-                                    <label>Preload Images</label>
-                                    <span>Tải trước hình ảnh để tăng tốc</span>
-                                </div>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="preloadToggle" checked>
-                                    <label for="preloadToggle" class="toggle-label"></label>
-                                </div>
+                        </div>
+                        <h3 class="tool-title">Chat</h3>
+                        <p class="tool-description">Hệ thống trò chuyện quản lý bởi nthdat.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="https://chat-zkjh.onrender.com/chat.html">
+                            <button class="tool-launch-btn">
+                                <span>Chat</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="tool-card" data-category="study">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Pomodoro</h3>
+                        <p class="tool-description">Tối ưu năng suất làm việc với phương pháp Pomodoro.</p>
+                        <div class="tool-tags">
+                            
+                            
+                        </div>
+                        <a target="_blank" href="pomodoro.html">
+                            <button class="tool-launch-btn">
+                                <span>Sử dụng</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="tool-card" data-category="entertaiment">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Camera (Hacked)</h3>
+                        <p class="tool-description">Khám phá những bí ẩn.</p>
+                        <div class="tool-tags">  
+                        </div>
+                        <a target="_blank" href="cam.html">
+                            <button class="tool-launch-btn">
+                                <span>Truy cập</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="tool-card" data-category="study">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Study</h3>
+                        <p class="tool-description">Khám phá kho tài nguyên học tập chất lượng.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="thamkhao.html">
+                            <button class="tool-launch-btn">
+                                <span>Truy cập</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="tool-card" data-category="entertaiment">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Song</h3>
+                        <p class="tool-description">Thư giãn với bộ sưu tập những bài hát tuyển chọn.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="song.html">
+                            <button class="tool-launch-btn">
+                                <span>Khám phá</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="tool-card" data-category="study">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Tài liệu</h3>
+                        <p class="tool-description">Trang web hữu ích dành cho Lập Trình Viên.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="usefulwebsite.html">
+                            <button class="tool-launch-btn">
+                                <span>Truy cập</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                    <div class="tool-card" data-category="study">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <h3 class="tool-title">Lịch sự kiện</h3>
+                        <p class="tool-description">Khám phá những sự kiện lịch sử quan trọng.</p>
+                        <div class="tool-tags">
+                        </div>
+                        <a target="_blank" href="sukienquantrong.html">
+                            <button class="tool-launch-btn">
+                                <span>Khám phá</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <br><br>
+            </section>
+
+
+            <section class="tab-content" id="settings">
+                <div class="section-header">
+                    <h2 class="section-title">Cài đặt</h2>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-section">
+                        <h3>Giao diện</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Chế độ tối</label>
+                                <span>Tự động chuyển đổi theo thời gian</span>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="darkModeToggle">
+                                <label for="darkModeToggle" class="toggle-label"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Hiệu ứng động</label>
+                                <span>Bật/tắt animations và transitions</span>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="animationsToggle" checked>
+                                <label for="animationsToggle" class="toggle-label"></label>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Particle Effects</label>
+                                <span>Hiệu ứng hạt nền</span>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="particlesToggle" checked>
+                                <label for="particlesToggle" class="toggle-label"></label>
                             </div>
                         </div>
                     </div>
-                </section>
-            </main>
-        </div>
+
+                    <div class="settings-section">
+                        <h3>Hiệu suất</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Chất lượng hiệu ứng</label>
+                                <span>Điều chỉnh chất lượng animations</span>
+                            </div>
+                            <select class="setting-select">
+                                <option value="low">Thấp</option>
+                                <option value="medium">Trung bình</option>
+                                <option value="high" selected>Cao</option>
+                                <option value="ultra">Siêu cao</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <label>Preload Images</label>
+                                <span>Tải trước hình ảnh để tăng tốc</span>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="preloadToggle" checked>
+                                <label for="preloadToggle" class="toggle-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
@@ -517,70 +514,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script>
-        const SUPABASE_URL = "https://duxthvbndmlgaqncfwgf.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1eHRodmJuZG1sZ2FxbmNmd2dmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4ODE2MjMsImV4cCI6MjA3NDQ1NzYyM30.mVb1rRJTZmibfxg0YLnDAED9A1shQsYNp_08IwlPQ4w";
-        
-        const { createClient } = supabase;
-        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // Check authentication on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
-        });
-
-        async function checkAuth() {
-            try {
-                const { data: { user }, error } = await client.auth.getUser();
-                
-                if (error || !user) {
-                    window.location.href = "dangnhap.html";
-                    return;
-                }
-
-                // Get username from profiles table
-                const { data: profile, error: profileError } = await client
-                    .from('profiles')
-                    .select('username')
-                    .eq('user_id', user.id)
-                    .single();
-
-                if (profileError) {
-                    console.error("Profile error:", profileError);
-                    window.location.href = "dangnhap.html";
-                    return;
-                }
-
-                // User is authenticated, show content
-                document.getElementById("content").style.display = "block";
-                document.getElementById("auth-status").textContent = `Xin chào, ${profile.username}`;
-                
-                // Initialize your page content
-                initializePage();
-            } catch (err) {
-                console.error("Auth error:", err);
-                window.location.href = "dangnhap.html";
-            }
-        }
-
-        function initializePage() {
-            // Add any initialization code here
-        }
-
-        async function logout() {
-            try {
-                const { error } = await client.auth.signOut();
-                if (error) {
-                    alert("Lỗi khi đăng xuất: " + error.message);
-                } else {
-                    window.location.href = "dangnhap.html";
-                }
-            } catch (err) {
-                console.error("Logout error:", err);
-            }
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
