@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>Confession Ẩn Danh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #f6f8fc 0%, #e9ecef 100%);
+      --container-bg: #fff;
+      --text-color: #1a1a1a;
+      --border-color: #e1e4e8;
+      --button-bg: #4CAF50;
+      --button-hover: #45a049;
+      --shadow-color: rgba(0,0,0,0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      --container-bg: #333;
+      --text-color: #fff;
+      --border-color: #4a4a4a;
+      --button-bg: #5cbb60;
+      --button-hover: #4CAF50;
+      --shadow-color: rgba(0,0,0,0.2);
+    }
+
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      transition: background 0.3s ease;
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      margin: 0; 
+      padding: 20px;
+    }
+
+    .container { 
+      background: var(--container-bg);
+      padding: 32px;
+      border-radius: 20px; 
+      box-shadow: 0 8px 24px var(--shadow-color); 
+      width: 100%; 
+      max-width: 480px;
+      transform: translateY(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px var(--shadow-color);
+    }
+    h1 { 
+      text-align: center; 
+      margin-bottom: 24px; 
+      color: var(--text-color);
+      font-size: 2em;
+      font-weight: 600;
+    }
+    input, textarea { 
+      background: var(--container-bg);
+      color: var(--text-color);
+      width: 100%; 
+      padding: 14px; 
+      margin: 8px 0 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    }
+    textarea { 
+      resize: vertical; 
+      min-height: 140px;
+      font-family: inherit;
+    }
+    button { 
+      width: 100%; 
+      padding: 14px;
+      background: var(--button-bg); 
+      color: #fff; 
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer; 
+      transition: all 0.2s ease;
+    }
+    button:hover { 
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #status { 
+      text-align: center; 
+      margin-top: 16px;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      background: var(--container-bg);
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(360deg);
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+  <div class="container">
+    <h1>Confession Ẩn Danh</h1>
+    <form id="confessForm">
+      <input type="text" name="name" placeholder="Tên (có thể để trống)">
+      <textarea name="message" placeholder="Viết confession của bạn..." required></textarea>
+      <button type="submit">Gửi Confession</button>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Set initial theme based on system preference
+    if (prefersDark.matches) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    document.getElementById("confessForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button');
+      const data = new FormData(form);
+
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'Đang gửi...';
+
+      try {
+        const res = await fetch("https://formspree.io/f/myznzoll", {
+          method: "POST",
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          document.getElementById("status").innerHTML = "✅ <strong>Gửi thành công!</strong>";
+          form.reset();
+        } else {
+          throw new Error();
+        }
+      } catch (error) {
+        document.getElementById("status").innerHTML = "❌ <strong>Lỗi, thử lại sau.</strong>";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = 'Gửi Confession';
+      }
+    });
+  </script>
+</body>
+</html>

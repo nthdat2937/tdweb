@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Email Đối Tác</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Màn hình đăng nhập -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h2><i class="fas fa-lock"></i> Đăng Nhập</h2>
+            <input type="password" id="passwordInput" placeholder="Nhập mật khẩu" onkeypress="handleKeyPress(event)">
+            <button onclick="login()">Đăng Nhập</button>
+            <p id="loginError" class="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Màn hình chính -->
+    <div id="mainApp" class="container" style="display: none;">
+        <header>
+            <h1><i class="fas fa-envelope"></i> Quản Lý Email Đối Tác</h1>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Đăng Xuất
+            </button>
+        </header>
+
+        <!-- Form thêm/sửa email -->
+        <div class="form-section">
+            <h2 id="formTitle"><i class="fas fa-plus-circle"></i> Thêm Email Mới</h2>
+            <div class="form-grid">
+                <input type="hidden" id="editIndex" value="-1">
+                <input type="text" id="nameInput" placeholder="Tên đối tác">
+                <input type="email" id="emailInput" placeholder="Email">
+                <select id="categoryInput">
+                    <option value="">Chọn danh mục</option>
+                    <option value="Khách hàng">Khách hàng</option>
+                    <option value="Nhà cung cấp">Nhà cung cấp</option>
+                    <option value="Đối tác">Đối tác</option>
+                    <option value="Nhân viên">Nhân viên</option>
+                </select>
+                <input type="text" id="titleInput" placeholder="Tiêu đề/Chức vụ">
+                <button onclick="saveEmail()" class="save-btn">
+                    <i class="fas fa-save"></i> Lưu
+                </button>
+                <button onclick="cancelEdit()" class="cancel-btn" id="cancelBtn" style="display: none;">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
+            </div>
+        </div>
+
+        <!-- Bộ lọc và tìm kiếm -->
+        <div class="filter-section">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm..." onkeyup="filterEmails()">
+            <select id="filterCategory" onchange="filterEmails()">
+                <option value="">Tất cả danh mục</option>
+                <option value="Khách hàng">Khách hàng</option>
+                <option value="Nhà cung cấp">Nhà cung cấp</option>
+                <option value="Đối tác">Đối tác</option>
+                <option value="Nhân viên">Nhân viên</option>
+            </select>
+        </div>
+
+        <!-- Danh sách email -->
+        <div class="email-list">
+            <h2><i class="fas fa-list"></i> Danh Sách Email</h2>
+            <div id="emailTable" class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Danh mục</th>
+                            <th>Tiêu đề</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emailTableBody">
+                        <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Loading spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
