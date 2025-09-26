@@ -1,12 +1,147 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Cảm ơn</title>
+  <title>Cảm ơn bạn - Confession</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #f6f8fc 0%, #e9ecef 100%);
+      --container-bg: #fff;
+      --text-color: #1a1a1a;
+      --border-color: #e1e4e8;
+      --button-bg: #4CAF50;
+      --button-hover: #45a049;
+      --shadow-color: rgba(0,0,0,0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      --container-bg: #333;
+      --text-color: #fff;
+      --border-color: #4a4a4a;
+      --button-bg: #5cbb60;
+      --button-hover: #4CAF50;
+      --shadow-color: rgba(0,0,0,0.2);
+    }
+
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      transition: background 0.3s ease;
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      margin: 0; 
+      padding: 20px;
+    }
+
+    .container { 
+      background: var(--container-bg);
+      padding: 32px;
+      border-radius: 20px; 
+      box-shadow: 0 8px 24px var(--shadow-color); 
+      width: 100%; 
+      max-width: 480px;
+      text-align: center;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 { 
+      margin-bottom: 16px; 
+      color: var(--text-color);
+      font-size: 2em;
+      font-weight: 600;
+    }
+
+    p {
+      color: var(--text-color);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .emoji {
+      font-size: 64px;
+      margin-bottom: 24px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 14px 28px;
+      background: var(--button-bg);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .back-button:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      background: var(--container-bg);
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(360deg);
+    }
+  </style>
 </head>
 <body>
-  <h1>Cảm ơn bạn đã gửi confession 💌</h1>
-  <p>Chúng mình đã nhận được và sẽ xử lý sớm nhất.</p>
-  <a href="index.html">Quay lại trang chính</a>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+  <div class="container">
+    <div class="emoji">🙏</div>
+    <h1>Cảm ơn bạn!</h1>
+    <p>Góp ý của bạn đã được ghi nhận.<br>Chúng mình sẽ xem xét và phản hồi sớm nhất.</p>
+    <a href="index.html" class="back-button">Gửi góp ý khác</a>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    if (prefersDark.matches) {
+      html.setAttribute('data-theme', 'dark');
+      themeToggle.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ app.get("/generate-token", (req, res) => {
 app.use(express.static("public"));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'dangnhap.html'));
   });
 
 app.use((req, res) => {

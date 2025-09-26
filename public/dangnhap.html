@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập / Đăng ký với Supabase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 95%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #user-info {
+      margin-top: 15px;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Đăng nhập / Đăng ký</h2>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Mật khẩu" required>
+    <button onclick="register()">Đăng ký</button>
+    <button onclick="login()">Đăng nhập</button>
+    <button onclick="logout()">Đăng xuất</button>
+    <div id="user-info">Chưa đăng nhập</div>
+  </div>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    // Thay bằng thông tin từ Supabase Project của bạn
+    const SUPABASE_URL = "https://duxthvbndmlgaqncfwgf.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1eHRodmJuZG1sZ2FxbmNmd2dmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4ODE2MjMsImV4cCI6MjA3NDQ1NzYyM30.mVb1rRJTZmibfxg0YLnDAED9A1shQsYNp_08IwlPQ4w";
+
+    const { createClient } = supabase;
+    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Đăng ký
+    async function register() {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      const { data, error } = await client.auth.signUp({ email, password: pass });
+      if (error) {
+        alert("Lỗi: " + error.message);
+      } else {
+        alert("Đăng ký thành công! Kiểm tra email để xác nhận.");
+      }
+    }
+
+    // Đăng nhập
+    async function login() {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      const { data, error } = await client.auth.signInWithPassword({ email, password: pass });
+      if (error) {
+        alert("Lỗi: " + error.message);
+      } else {
+        alert("Đăng nhập thành công!");
+        document.getElementById("user-info").textContent = "Đang đăng nhập: " + data.user.email;
+      }
+    }
+
+    // Đăng xuất
+    async function logout() {
+      const { error } = await client.auth.signOut();
+      if (error) {
+        alert("Lỗi: " + error.message);
+      } else {
+        alert("Đã đăng xuất");
+        document.getElementById("user-info").textContent = "Chưa đăng nhập";
+      }
+    }
+  </script>
+</body>
+</html>

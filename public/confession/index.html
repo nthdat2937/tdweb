@@ -2,7 +2,7 @@
 <html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Confession Ẩn Danh</title>
+  <title>Đánh giá & Góp ý</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -44,7 +44,7 @@
       border-radius: 20px; 
       box-shadow: 0 8px 24px var(--shadow-color); 
       width: 100%; 
-      max-width: 480px;
+      max-width: 600px;
       transform: translateY(0);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -154,16 +154,35 @@
     .theme-toggle:hover {
       transform: rotate(360deg);
     }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 500;
+      color: var(--text-color);
+    }
   </style>
 </head>
 <body>
   <button class="theme-toggle" id="themeToggle">🌙</button>
   <div class="container">
-    <h1>Confession Ẩn Danh</h1>
+    <h1>Góp Ý</h1>
     <form id="confessForm">
-      <input type="text" name="name" placeholder="Tên (có thể để trống)">
-      <textarea name="message" placeholder="Viết confession của bạn..." required></textarea>
-      <button type="submit">Gửi Confession</button>
+      <div class="input-group">
+        <label class="input-label">Tên của bạn (không bắt buộc)</label>
+        <input type="text" name="name" placeholder="Nhập tên của bạn">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Nội dung</label>
+        <textarea name="message" placeholder="Chia sẻ ý kiến của bạn..." required></textarea>
+      </div>
+
+      <button type="submit">Gửi</button>
     </form>
     <p id="status"></p>
   </div>
@@ -189,8 +208,8 @@
     document.getElementById("confessForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const form = e.target;
-      const submitBtn = form.querySelector('button');
-      const data = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const formData = new FormData(form);
 
       submitBtn.disabled = true;
       submitBtn.classList.add('loading');
@@ -199,13 +218,12 @@
       try {
         const res = await fetch("https://formspree.io/f/myznzoll", {
           method: "POST",
-          body: data,
+          body: formData,
           headers: { 'Accept': 'application/json' }
         });
 
         if (res.ok) {
-          document.getElementById("status").innerHTML = "✅ <strong>Gửi thành công!</strong>";
-          form.reset();
+          window.location.href = 'thankyou.html';
         } else {
           throw new Error();
         }
@@ -214,7 +232,7 @@
       } finally {
         submitBtn.disabled = false;
         submitBtn.classList.remove('loading');
-        submitBtn.textContent = 'Gửi Confession';
+        submitBtn.textContent = 'Gửi';
       }
     });
   </script>
